@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'ksiegarnia.KsiegarniaServer'
+
+repositories {
+    mavenCentral()
+}
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    testCompile "junit:junit:4.12"
+    compile 'com.google.firebase:firebase-server-sdk:[3.0.0,)'
+}
+
+jar {
+    baseName = 'gs-gradle'
+    version =  '0.1.0'
+}
