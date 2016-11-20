@@ -1,0 +1,11 @@
+do uruchomienia potrzebny jest python3 i bottle
+jeżeli macie pythona3 to instalujecie bottle w ten sposób:
+sudo pip3 install bottle
+
+potrzebne są też inne moduły
+uruchamianie:
+
+python3 run.py
+
+
+api dostępne jest w api/books.py
