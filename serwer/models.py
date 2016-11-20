@@ -1,5 +1,5 @@
 import json, pymongo
-#books_example = json.loads(open('examples.json','r').read())
+books_example = json.loads(open('examples.json','r').read())
 
 
 
