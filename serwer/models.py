@@ -1,22 +1,20 @@
 import json, pymongo
-books_example = json.loads(open('examples.json','r').read())
+from pymongo import MongoClient
+from bson.json_util import dumps
 
+def connect_to_database(host='localhost', port=27017):
+    client = MongoClient(host, port)
+    db = client.ksiegarniadb
+    return db
+
+db = connect_to_database()
 
 
 class Books():
-
+    books = db.books
     def getAllBooks():
-        return books_example
-
-
+        return dumps(Books.books.find())
     def getAllIdAndTittles():
         return {b['id']:b['name'] for b in books_example}
-
-
     def getBookById(id):
-        return next((b for b in books_example if b['id'] == id), None)
-
-#print(Books.getAllTittles())
-#print(Books.getBookById(1))
-
-#print(Books.getAllTittles())
+        return dumps(Books.books.find_one({"id":str(id)}))
