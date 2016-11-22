@@ -1,4 +1,4 @@
-import json, pymongo
+import json
 books_example = json.loads(open('examples.json','r').read())
 
 
