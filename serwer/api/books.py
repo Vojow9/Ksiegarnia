@@ -4,11 +4,12 @@ import models
 @get('/books/all')
 def booklist():
     return models.Books.getAllBooks()
-    #print(models.Books.getAllBooks())
-    #return str([1,2,3,4])
+
+'''
 @get('/books/allIdAndTitles')
 def booklist():
     return models.Books.getAllIdAndTittles()
+'''
 
 @get('/books/<id>')
 def booklist(id):
