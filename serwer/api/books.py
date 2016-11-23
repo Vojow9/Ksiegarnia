@@ -1,7 +1,7 @@
 from bottle import get, post
 import models
 
-@get('/books/all')
+@get('/books')
 def booklist():
     return models.Books.getAllBooks()
 

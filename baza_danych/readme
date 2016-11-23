@@ -1,4 +1,4 @@
 musi być włączony mongodb (wpisz mongod w terminal)
 
-jak działa to:
+jak działa, to:
 ./import_database.sh
