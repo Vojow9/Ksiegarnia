@@ -1,5 +1,5 @@
 from bottle import run
-import api.books
+import api.books, api.authors
 
 
 def main():

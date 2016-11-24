@@ -3,7 +3,7 @@ from models.books import Books
 
 @get('/books')
 def booklist():
-    return Books.getAllBooks()
+    return Books.getAll()
 
 '''
 @get('/books/allIdAndTitles')
@@ -13,4 +13,4 @@ def booklist():
 
 @get('/books/<id>')
 def booklist(id):
-    return Books.getBookById(id)
+    return Books.getById(id)

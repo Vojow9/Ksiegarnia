@@ -1,9 +1,9 @@
 from bottle import get, post
-from models.books import Books
+from models.authors import Authors
 
-@get('/books')
+@get('/authors')
 def booklist():
-    return Books.getAllBooks()
+    return Authors.getAll()
 
 '''
 @get('/books/allIdAndTitles')
@@ -11,6 +11,6 @@ def booklist():
     return models.Books.getAllIdAndTittles()
 '''
 
-@get('/books/<id>')
+@get('/authors/<id>')
 def booklist(id):
-    return Books.getBookById(id)
+    return Authors.getById(id)

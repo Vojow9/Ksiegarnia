@@ -11,9 +11,9 @@ def connect_to_database(host='localhost', port=27017):
 db = connect_to_database()
 
 
-class Books():
-    books = db.books
+class Authors():
+    authors = db.authors
     def getAll():
-        return dumps(Books.books.find())
+        return dumps(Authors.authors.find())
     def getById(id):
-        return dumps(Books.books.find_one({'_id' :ObjectId(id)}))
+        return dumps(Authors.authors.find_one({'_id' :ObjectId(id)}))
