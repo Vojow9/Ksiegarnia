@@ -1,5 +1,9 @@
 from bottle import run
-import api.books
+import api.books, api.authors
 
-run(host='localhost', port=8080, debug=True)
- 
+
+def main():
+    run(host='localhost', port=8080, debug=True)
+
+if __name__ == '__main__':
+    main()
