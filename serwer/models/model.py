@@ -18,4 +18,4 @@ class Model():
 
     @classmethod
     def getById(cls,id):
-        return dumps(cls.find_one({'_id' :ObjectId(id)}))
+        return dumps(cls.collection.find_one({'_id' :ObjectId(id)}))
