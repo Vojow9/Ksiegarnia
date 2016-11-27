@@ -5,4 +5,6 @@ package com.projekt.ksiegarniadroid.connectivity;
  */
 
 public class RESTClientAdapter {
+
+
 }
