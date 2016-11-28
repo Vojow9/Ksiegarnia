@@ -12,7 +12,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvTest"
+        android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -20,9 +20,17 @@
         android:text="Księgarnia" />
 
     <Button
-        android:id="@+id/btnTest"
+        android:id="@+id/btnAuthors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Autorzy książek" />
+
+    <Button
+        android:id="@+id/btnBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Książki" />
+
 </LinearLayout>

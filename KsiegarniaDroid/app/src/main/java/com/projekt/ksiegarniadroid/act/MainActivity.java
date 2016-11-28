@@ -1,5 +1,6 @@
 package com.projekt.ksiegarniadroid.act;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,17 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.projekt.ksiegarniadroid.R;
-import com.projekt.ksiegarniadroid.connectivity.RESTClient;
-import com.projekt.ksiegarniadroid.exceptions.RESTClientException;
-import com.projekt.ksiegarniadroid.objects.Author;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private Button btnGetAuthors;
+    private Button btnGetBooks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setControls() {
-        btnGetAuthors = (Button) findViewById(R.id.btnTest);
+        btnGetAuthors = (Button) findViewById(R.id.btnAuthors);
+        btnGetBooks = (Button) findViewById(R.id.btnBook);
     }
 
     private void setEvents() {
@@ -37,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, AuthorsListActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnGetBooks.setTransformationMethod(null);
+        btnGetBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, BooksListActivity.class);
                 startActivity(i);
             }
         });
