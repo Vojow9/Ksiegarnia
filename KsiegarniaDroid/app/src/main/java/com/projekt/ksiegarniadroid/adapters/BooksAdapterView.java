@@ -8,15 +8,20 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.projekt.ksiegarniadroid.R;
-import com.projekt.ksiegarniadroid.objects.Author;
+import com.projekt.ksiegarniadroid.objects.Book;
 
 import java.util.ArrayList;
 
-public class AuthorsAdapterView extends BaseAdapter {
-    private final ArrayList<Author> _entries;
+/**
+ * Created by Sebo on 2016-11-27.
+ */
+
+public class BooksAdapterView extends BaseAdapter {
+
+    private final ArrayList<Book> _entries;
     private final Context _context;
 
-    public AuthorsAdapterView(ArrayList<Author> _entries, Context _context) {
+    public BooksAdapterView(ArrayList<Book> _entries, Context _context) {
         this._entries = _entries;
         this._context = _context;
     }
@@ -39,19 +44,24 @@ public class AuthorsAdapterView extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Author entry = _entries.get(position);
+        Book entry = _entries.get(position);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.author_list_item, null);
+            convertView = inflater.inflate(R.layout.book_list_item, null);
         }
 
-        TextView tv = (TextView) convertView.findViewById(R.id.tvAuthorId);
-        tv.setText(entry.get_id().get$oid());
-        tv = (TextView) convertView.findViewById(R.id.tvAuthorName);
-        tv.setText(entry.getName());
+        TextView tv = (TextView) convertView.findViewById(R.id.tvBookTitle);
+        tv.setText(entry.getTitle());
         tv = (TextView) convertView.findViewById(R.id.tvDescription);
         tv.setText(entry.getDescription());
+        tv = (TextView) convertView.findViewById(R.id.tvPrice);
+        tv.setText(Double.toString(entry.getPrice()));
+        tv = (TextView) convertView.findViewById(R.id.tvAvailability);
+        if(entry.getAvailability()!=null)
+        tv.setText(entry.getAvailability());
+        else tv.setText("Brak");
+        tv = (TextView) convertView.findViewById(R.id.tvIsEbook);
+        tv.setText(entry.getIsEbook().toString());
         return convertView;
     }
 }
-

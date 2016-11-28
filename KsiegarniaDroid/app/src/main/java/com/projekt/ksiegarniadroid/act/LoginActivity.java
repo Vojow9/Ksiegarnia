@@ -1,5 +1,6 @@
 package com.projekt.ksiegarniadroid.act;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.projekt.ksiegarniadroid.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
     CallbackManager callbackManager;
     LoginButton loginButton;
 
