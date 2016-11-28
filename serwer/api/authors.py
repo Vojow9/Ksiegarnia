@@ -5,12 +5,6 @@ from models.authors import Authors
 def booklist():
     return Authors.getAll()
 
-'''
-@get('/books/allIdAndTitles')
-def booklist():
-    return models.Books.getAllIdAndTittles()
-'''
-
 @get('/authors/<id>')
 def booklist(id):
     return Authors.getById(id)
