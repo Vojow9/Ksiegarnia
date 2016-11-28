@@ -1,7 +1,7 @@
 import json, pymongo
 from pymongo import MongoClient
 from bson import ObjectId
-from bson.json_util import dumps
+from bson.json_util import dumps,default
 
 
 class Model():
@@ -14,8 +14,8 @@ class Model():
 
     @classmethod
     def getAll(cls):
-        return dumps(cls.collection.find())
+        return dumps(cls.collection.find(),ensure_ascii=False).encode("utf8")
 
     @classmethod
     def getById(cls,id):
-        return dumps(cls.collection.find_one({'_id' :ObjectId(id)}))
+        return dumps(cls.collection.find_one({'_id' :ObjectId(id)}),ensure_ascii=False,indent=4, default=default).encode("utf8")

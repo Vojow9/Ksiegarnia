@@ -10,10 +10,3 @@ def booklist():
 def booklist(id):
     return Books.getById(id)
 
-
-@put('/ser')
-def update_handler():
-    '''Handles name updates'''
-
-    data = json.load(request.body.decode("utf-8"))
-    print(data)
