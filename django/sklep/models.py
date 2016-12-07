@@ -12,6 +12,7 @@ class Book(models.Model):
 	paper = models.CharField(max_length=30)
 	graphics = models.TextField()
 	published_date = models.DateTimeField(blank=True, null=True)
+
 	def add(self):
 		self.published_date = timezone.now()
 		self.save()
