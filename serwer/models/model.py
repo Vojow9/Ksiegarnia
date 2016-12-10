@@ -17,9 +17,8 @@ class Model():
     def prettyIdRepresentation(collection):
         prettyCollection = list(collection.find())
         for item in prettyCollection:
-            item['$oid']=str(item['_id'])
+            item['oid']=str(item['_id'])
             del item['_id']
-        print(prettyCollection)
         return prettyCollection
 
     @classmethod
