@@ -12,17 +12,15 @@ class Model():
 
     db = connect_to_database()
 
-
-
     #changes "_id":{"$oid":" "5836049c57aac220c4c87384"} to simple $oid:" "5836049c57aac220c4c87384"
     #maybe that should be recursive in some way?
     def prettyIdRepresentation(collection):
-        prettyCollecion = list(collection.find())
-        for item in prettyCollecion:
+        prettyCollection = list(collection.find())
+        for item in prettyCollection:
             item['$oid']=str(item['_id'])
             del item['_id']
-        print(prettyCollecion)
-        return prettyCollecion
+        print(prettyCollection)
+        return prettyCollection
 
     @classmethod
     def getAll(cls):
