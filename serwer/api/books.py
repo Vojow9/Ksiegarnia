@@ -3,10 +3,9 @@ from models.books import Books
 import json
 
 @get('/books')
-def booklist():
+def bookslist():
     return Books.getAll()
 
 @get('/books/<id>')
-def booklist(id):
+def bookslist(id):
     return Books.getById(id)
-
