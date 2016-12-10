@@ -2,7 +2,7 @@ import json, pymongo
 from pymongo import MongoClient
 from bson import ObjectId
 from bson.json_util import dumps,default
-
+from copy import deepcopy
 
 class Model():
     def connect_to_database(host='localhost', port=27017):
@@ -12,9 +12,26 @@ class Model():
 
     db = connect_to_database()
 
+
+
+    #changes "_id":{"$oid":" "5836049c57aac220c4c87384"} to simple $oid:" "5836049c57aac220c4c87384"
+    #maybe that should be recursive in some way?
+    def prettyIdRepresentation(collection):
+        prettyCollecion = list(collection.find())
+        for item in prettyCollecion:
+            item['$oid']=str(item['_id'])
+            del item['_id']
+        print(prettyCollecion)
+        return prettyCollecion
+
     @classmethod
     def getAll(cls):
-        return dumps(cls.collection.find(),ensure_ascii=False).encode("utf8")
+        collection = Model.prettyIdRepresentation(cls.collection)
+        #print(dumps(cls.collection.find(),ensure_ascii=False).encode("utf8"))
+        return dumps(collection,ensure_ascii=False).encode("utf8")
+
+
+
 
     @classmethod
     def getById(cls,id):
