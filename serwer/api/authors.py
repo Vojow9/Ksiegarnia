@@ -2,9 +2,9 @@ from bottle import get, post
 from models.authors import Authors
 
 @get('/authors')
-def booklist():
+def authorslist():
     return Authors.getAll()
 
 @get('/authors/<id>')
-def booklist(id):
+def authorslist(id):
     return Authors.getById(id)

@@ -7,5 +7,4 @@ uruchamianie:
 
 python3 run.py
 
-
 api dostępne jest w api/books.py
