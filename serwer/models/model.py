@@ -17,6 +17,19 @@ class Model():
     #maybe that should be recursive in some way?
     def prettyIdRepresentation(collection):
         prettyCollection = collection
+        print(type(collection))
+        if  isinstance(prettyCollection,dict):
+            try:
+                prettyCollection['id']=str(prettyCollection['_id'])
+                del prettyCollection['_id']
+            except:
+                pass
+            for i in prettyCollection:
+                if isinstance(prettyCollection[i],list) and isinstance(prettyCollection[i][0],ObjectId):
+                    prettyCollection[i] = [str(a) for a in prettyCollection[i]]
+            return prettyCollection
+
+
         for item in prettyCollection:
             try:
                 item['id']=str(item['_id'])
@@ -37,4 +50,13 @@ class Model():
 
     @classmethod
     def getById(cls,id):
-        return dumps(cls.collection.find_one({'_id' :ObjectId(id)}),ensure_ascii=False,indent=4, default=default).encode("utf8")
+        print(type(cls.collection.find_one({'_id' :ObjectId(id)})))
+        print('='*30)
+        print(cls.collection.find_one({'_id' :ObjectId(id)}))
+        print('='*30)
+        collection = cls.collection.find_one({'_id' :ObjectId(id)})
+        collection = Model.prettyIdRepresentation(collection)
+        return dumps(collection,ensure_ascii=False,indent=4, default=default).encode("utf8")
+
+        #print(type(cls.collection.find_one({'_id' :ObjectId(id)})))
+        #return dumps(cls.collection.find_one({'_id' :ObjectId(id)}),ensure_ascii=False,indent=4, default=default).encode("utf8")
