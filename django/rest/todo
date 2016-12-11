@@ -1,3 +1,0 @@
--używajcie .gitignore (zrobiłem Wam na razie tak jak powinno być)
--wywalcie sqlite, bo z tego nie korzystamy
--wywalcie django rest framework, bo to framework do robienia API, a nie korzystania z niego

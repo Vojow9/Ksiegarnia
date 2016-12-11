@@ -1,0 +1,9 @@
+ważne:
+-podłączcie autorów, analogicznie do książek (pliki services.py i views.py i zwartość tempates/sklep
+-sprawcie, aby zamiast listy z id autorów, pojawiała się lista z nazwami autorów
+
+
+mniej ważne:
+-wywalcie sqlite, bo z tego nie korzystamy
+-wywalcie django rest framework, bo to framework do robienia API, a nie korzystania z niego jako klient
+-używajcie .gitignore (zrobiłem Wam na razie tak jak powinno być)
