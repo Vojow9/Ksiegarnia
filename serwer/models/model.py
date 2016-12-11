@@ -13,21 +13,26 @@ class Model():
     db = connect_to_database()
 
     #changes "_id":{"$oid":" "5836049c57aac220c4c87384"} to simple $oid:" "5836049c57aac220c4c87384"
+    #and changes list of ObjectID type, to list of strings
     #maybe that should be recursive in some way?
     def prettyIdRepresentation(collection):
-        prettyCollection = list(collection.find())
+        prettyCollection = collection
         for item in prettyCollection:
-            item['oid']=str(item['_id'])
-            del item['_id']
+            try:
+                item['id']=str(item['_id'])
+                del item['_id']
+            except:
+                pass
+            for i in item:
+                if isinstance(item[i],list) and isinstance(item[i][0],ObjectId):
+                    item[i] = [str(a) for a in item[i]]
         return prettyCollection
 
     @classmethod
     def getAll(cls):
-        collection = Model.prettyIdRepresentation(cls.collection)
-        #print(dumps(cls.collection.find(),ensure_ascii=False).encode("utf8"))
+        collection = list(cls.collection.find()) # tu mamy kursor
+        collection = Model.prettyIdRepresentation(collection)
         return dumps(collection,ensure_ascii=False).encode("utf8")
-
-
 
 
     @classmethod
