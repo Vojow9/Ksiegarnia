@@ -4,9 +4,9 @@
     {% for book in books %}
         <div class="book">
       {{book.title}}
-      <h1><a href="{% url 'book_detail' pk=book.oid %}">{{ book.title }}</a></h1>
+      <h1><a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1>
 			<div class="author">
-			Autor: {{book.authors}}
+			Autor: {{ book.authors }}
 			</div>
 			<div class="price">
                Cena: {{ book.price}} zł
