@@ -3,45 +3,15 @@
 {% block content %}
     {% for book in books %}
         <div class="book">
-		   <h1><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h1>
+      {{book.title}}
+      <h1><a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1>
 			<div class="author">
-			Autor: {{book.author}}
+			Autor: {{ book.authors }}
 			</div>
 			<div class="price">
                Cena: {{ book.price}} zł
             </div>
         </div>
     {% endfor %}
-
-  {% if form.errors %}
-      <p class="error">Sorry, that's not a valid username or password</p>
-    {% endif %}
-
-    <form action="/accounts/auth/" method="post">{% csrf_token %}
-      <label for="username">User name:</label>
-      <input type="text" name="username" value="" id="username">
-      <label for="password">Password:</label>
-      <input type="password" name="password" value="" id="password">
-
-      <input type="submit" value="login" />
-
-  </form>
-
-  <h2>Register</h2>
-
-  {% for field in form %}
-    {{field.error}}
-
-  {% endfor %}
-
-  <form action="/accounts/register/" method="post">{% csrf_token %}
-  {{form}}
-
-
-
-  <input type="submit" value="Register" />
-
-  </form>
-
 
 {% endblock content %}

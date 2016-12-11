@@ -1,0 +1,17 @@
+To co tu pisze odnosi się do katalogu sklep.
+
+Do tej pory korzytaliscie z pliku models.py, który komunikował się z lokalną bazą danych.
+Jako, że nie korzystamy z lokalnej bazy danych to musicie robić zapytania do restowego API.
+Służy temu plik services.pl Funckje views.py zwracają obiekt jsonowy, który pobierany jest z restowego API.
+Możecie odpalić w katalogu
+Ksiegarnia/django/sklep
+to: python3 services.py i wtedy zobaczycie co się wyświetla.
+
+
+Zatem metody z pliku views.py korzystają z pliku services.py.
+
+
+Plik models.py jest zatem niepotrzebny. Możecie go zatem wywalić. Albo lepiej
+możecie wszystko przerobić, aby views.py komunikowało się z models.py (gdzie są ładne
+reprezentacje obiektów), a models.py korzysta z services.py Ale to lepiej zróbcie,
+jak lepiej ogarniecie temat

@@ -1,0 +1,1 @@
+-change methods prettyIdRepresentation to work in all cases independently from sobject structure
