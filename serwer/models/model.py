@@ -12,29 +12,25 @@ class Model():
 
     db = connect_to_database()
 
-    #changes "_id":{"$oid":" "5836049c57aac220c4c87384"} to simple $oid:" "5836049c57aac220c4c87384"
-    #and changes list of ObjectID type, to list of strings
-    #maybe that should be recursive in some way?
 
+    #changes list of ObjectID type, to list of strings
     def prettyIdRepresentationOfItem(collection):
-        prettyCollection = collection
         try:
-            prettyCollection['id']=str(prettyCollection['_id'])
-            del prettyCollection['_id']
+            collection['id']=str(collection['_id'])
+            del collection['_id']
         except:
             pass
-        for i in prettyCollection:
-            if isinstance(prettyCollection[i],list) and isinstance(prettyCollection[i][0],ObjectId):
-                prettyCollection[i] = [str(a) for a in prettyCollection[i]]
-        return prettyCollection
+        for i in collection:
+            if isinstance(collection[i],list) and isinstance(collection[i][0],ObjectId):
+                collection[i] = [str(a) for a in collection[i]]
+        return collection
 
-
+    #changes "_id":{"$oid":" "5836049c57aac220c4c87384"} to simple $oid:" "5836049c57aac220c4c87384"
     def prettyIdRepresentation(collection):
-        prettyCollection = collection
-        print(type(collection))
-        if  isinstance(prettyCollection,dict):
-            return Model.prettyIdRepresentationOfItem(prettyCollection)
-        return [Model.prettyIdRepresentationOfItem(item) for item in prettyCollection]
+        collection
+        if  isinstance(collection,dict):
+            return Model.prettyIdRepresentationOfItem(collection)
+        return [Model.prettyIdRepresentationOfItem(item) for item in collection]
 
     @classmethod
     def getAll(cls):
