@@ -11,18 +11,26 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Author',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=50)),
+                ('description', models.TextField()),
+            ],
+        ),
+        migrations.CreateModel(
             name='Book',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('author', models.CharField(max_length=50)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=70)),
+                ('ISBN', models.IntegerField()),
                 ('description', models.TextField()),
                 ('tableOfContents', models.TextField()),
                 ('price', models.IntegerField()),
-                ('ebook', models.CharField(max_length=30)),
-                ('paper', models.CharField(max_length=30)),
+                ('ebook', models.BooleanField()),
                 ('graphics', models.TextField()),
-                ('published_date', models.DateTimeField(null=True, blank=True)),
+                ('published_date', models.DateTimeField(blank=True, null=True)),
+                ('author', models.ForeignKey(to='sklep.Author')),
             ],
         ),
     ]
