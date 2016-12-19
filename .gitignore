@@ -7,4 +7,5 @@ django/ksiegarnia/__pycache__/
 django/sklep/__pycache__/
 django/sklep/migrations/__pycache__/
 django/rest/__pycache__/
-django/.idea
+django/.idea/
+django/myvenv/
