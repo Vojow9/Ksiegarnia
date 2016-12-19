@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 	'sklep',
 	'rest_framework',
     'rest',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,13 +67,22 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
 ]
 
+
+
 WSGI_APPLICATION = 'ksiegarnia.wsgi.application'
 
+SOCIAL_AUTH_FACEBOOK_KEY = '1230595910347783'
+
+SOCIAL_AUTH_FACEBOOK_SECRET = 'f1b17e40d62a945d0310cb822478d4dc'
+
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

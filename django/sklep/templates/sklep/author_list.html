@@ -1,0 +1,12 @@
+{% extends 'sklep/base.html' %}
+
+{% block content %}
+    {% for author in authors %}
+        <div class="author">
+      <h1>{{ author.name }}</h1>
+        <div class="description"><p>Opis:<br><br>{{ author.description|linebreaksbr }}</br></br></p></div>
+
+        </div>
+    {% endfor %}
+
+{% endblock content %}
