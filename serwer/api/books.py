@@ -7,5 +7,5 @@ def bookslist():
     return Books.getAll()
 
 @get('/books/<id>')
-def bookslist(id):
+def book(id):
     return Books.getById(id)
