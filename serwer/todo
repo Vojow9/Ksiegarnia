@@ -1,1 +1,6 @@
 -change methods prettyIdRepresentation to work in all cases independently from sobject structure
+
+-authentication for users and for admin
+
+
+-

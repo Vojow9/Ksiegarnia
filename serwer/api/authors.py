@@ -6,5 +6,5 @@ def authorslist():
     return Authors.getAll()
 
 @get('/authors/<id>')
-def authorslist(id):
+def author(id):
     return Authors.getById(id)
