@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .services import getBooksList, getBookById, getAuthorsList, getAuthorById
+from .services import getBooksList, getBookById, getAuthorsList, getAuthorById, getBook
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
@@ -16,6 +16,10 @@ def book_detail(request, pk):
     book = getBookById(pk)
     return render(request, 'sklep/book_detail.html', {'book': book})
 
+def book(request):
+    books = getBook()
+    return render(request, 'sklep/book.html', {'books':books})
+	
 def author_list(request):
     authors = getAuthorsList()
     return render(request, 'sklep/author_list.html', {'authors':authors})

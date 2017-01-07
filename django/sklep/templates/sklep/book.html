@@ -1,17 +1,12 @@
 {% extends 'sklep/base.html' %}
 
 {% block content %}
-
-
-<table id="myTable">
    
-{% for book in books %} 
+   <table id="myTable">
+   
+ {% for book in books %}
 	<tr>
-		<td>
-			<h1><a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1>
-			<div class="author">Autor: {{ book.authors }}</div>
-			<div class="price">Cena: {{ book.price}} zł</div>
-		</td>
+		<td><h1><a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1></td>
 	</tr>
 
  {% endfor %} 
@@ -37,7 +32,6 @@ function myFunction() {
 }
 </script>
 
- 
-
-
 {% endblock content %}
+
+

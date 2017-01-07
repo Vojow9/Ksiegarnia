@@ -3,6 +3,7 @@
 {% block content %}
     <div class="book">
         <h1>{{ book.title }}</h1>
+		<img src="{{book.graphics}}">
 		<div class="author"><br>{{ book.author }}</br></div>
 		<div class="price"><br><br>Cena: {{ book.price }} zł</br></br><div>
         <div class="description"><p>Opis:<br><br>{{ book.description|linebreaksbr }}</br></br></p></div>

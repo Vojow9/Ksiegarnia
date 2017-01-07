@@ -1,12 +1,36 @@
 {% extends 'sklep/base.html' %}
 
 {% block content %}
-    {% for author in authors %}
-        <div class="author">
-      <h1>{{ author.name }}</h1>
-        <div class="description"><p>Opis:<br><br>{{ author.description|linebreaksbr }}</br></br></p></div>
+    <table id="myTable">
+   
+{% for author in authors %}
+	<tr>
+		<td><h1><a href="{% url 'author_detail' pk=author.id %}">{{ author.name }}</a></h1></td>
+	</tr>
 
-        </div>
-    {% endfor %}
+ {% endfor %} 
+</table>
 
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i,pk ;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+        
 {% endblock content %}
+
+
