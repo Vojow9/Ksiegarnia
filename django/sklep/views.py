@@ -8,6 +8,7 @@ from django.contrib import auth
 from django.template.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 
+
 def book_list(request):
     books = getBooksList()
     return render(request, 'sklep/book_list.html', {'books':books})
@@ -19,7 +20,7 @@ def book_detail(request, pk):
 def book(request):
     books = getBook()
     return render(request, 'sklep/book.html', {'books':books})
-	
+
 def author_list(request):
     authors = getAuthorsList()
     return render(request, 'sklep/author_list.html', {'authors':authors})
@@ -30,3 +31,9 @@ def author_detail(request, pk):
 
 def shop_detail(request):
 	return render(request, 'sklep/shop_detail.html')
+
+def add_book(request):
+    return render(request, 'sklep/add_book.html')
+
+def cart(request):
+    return render(request,'sklep/cart.html')

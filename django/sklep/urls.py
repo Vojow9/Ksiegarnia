@@ -8,5 +8,7 @@ urlpatterns = [
 	url(r'^books', views.book, name='book'),
     url(r'^author/(?P<pk>[0-9a-zA-Z-]+)/$', views.author_detail, name='author_detail'),
     url(r'^zakup/$', views.shop_detail, name='shop_detail'),
-]
+    url(r'^add_book',views.add_book, name='add_book'),
+    url(r'^cart',views.cart, name="cart"),
 
+]
