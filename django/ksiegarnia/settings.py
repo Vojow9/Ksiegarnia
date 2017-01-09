@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 	'sklep',
 	'rest_framework',
     'rest',
+    'javascript_settings',
 
 )
 

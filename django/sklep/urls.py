@@ -12,3 +12,4 @@ urlpatterns = [
     url(r'^cart',views.cart, name="cart"),
 
 ]
+

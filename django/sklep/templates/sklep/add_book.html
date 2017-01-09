@@ -1,5 +1,5 @@
-
-
+{% extends 'sklep/base.html' %}
+{% block content %}
 <html lang="en">
 <div class="container">
 <div class="col-md-5">
@@ -23,11 +23,27 @@
                   <textarea class="form-control" type="textarea" id="description" placeholder="Opis" maxlength="140" rows="7"></textarea>
                   </div>
 
-      <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Dodaj</button>
+      <button type="button" id="submit" onkeypress="submit()" name="submit" class="btn btn-primary pull-right">Dodaj</button>
       </form>
   </div>
 </div>
 </div>
 
+<script type="text/javascript">
+    function sumbit(){
+    var data = new FormData();
+    data.append('title', 'title');
+    data.append('author', 'author');
+    data.append('ISBN', 'ISBN');
+    data.append('price', 'price');
 
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:8080/books/, true);
+    xhr.onload = function () {
+    console.log(this.responseText);
+    };
+    xhr.send(data);
+    }
+</script>
 </html>
+{% endblock %}

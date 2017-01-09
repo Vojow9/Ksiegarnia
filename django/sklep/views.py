@@ -15,7 +15,13 @@ def book_list(request):
 
 def book_detail(request, pk):
     book = getBookById(pk)
-    return render(request, 'sklep/book_detail.html', {'book': book})
+    al = book['authors']
+    an = list()
+    for aut in al:
+        an.append(getAuthorById(aut)['name'])
+        print(an)
+
+    return render(request, 'sklep/book_detail.html', {'book': book,'authors':an})
 
 def book(request):
     books = getBook()
