@@ -1,4 +1,4 @@
-from bottle import get, post, request, route,put
+from bottle import get, post, request, route,put, response
 from models.customers import Customers
 import json
 
@@ -9,3 +9,9 @@ def customerslist():
 @get('/customers/<id>')
 def customer(id):
     return Customers.getById(id)
+
+
+@put('/customers')
+def createCustomer():
+    data = request.body.readlines()[0]
+    response.status = Customers.createCustomer(data)

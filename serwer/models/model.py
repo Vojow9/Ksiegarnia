@@ -27,3 +27,10 @@ class Model():
         collection = cls.collection.find_one({'_id' :ObjectId(id)})
         collection = DBItemIdParser.prettyIdRepresentation(collection)
         return dumps(collection,ensure_ascii=False,).encode("utf8")
+
+
+    def properLenOfObject(obj, max_len = 30):
+        if not ( 0 < len(obj) < max_len ):
+            return False
+        else:
+            return True
