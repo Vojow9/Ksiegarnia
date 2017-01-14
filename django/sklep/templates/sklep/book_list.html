@@ -1,17 +1,42 @@
 {% extends 'sklep/base.html' %}
 
 {% block content %}
-    {% for book in books %}
-        <div class="book">
-      {{book.title}}
-      <h1><a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1>
-			<div class="author">
-			Autor: {{ book.authors }}
-			</div>
-			<div class="price">
-               Cena: {{ book.price}} zł
-            </div>
-        </div>
-    {% endfor %}
+
+
+<table id="myTable">
+   
+{% for book in books %} 
+	<tr>
+		<td>
+			<h1><a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1>
+			<div class="price">Cena: {{ book.price}} zł</div>
+		</td>
+	</tr>
+
+ {% endfor %} 
+</table>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i,pk ;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+ 
+
 
 {% endblock content %}

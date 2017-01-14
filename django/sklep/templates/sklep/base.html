@@ -1,16 +1,89 @@
 {% load staticfiles %}
+{% load javascript_settings_tags %}
+<script type="text/javascript">{% javascript_settings %}</script>
 <html>
+
+
     <head>
         <title>Księgarnia </title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/sklep.css' %}">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jguery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+			<nav class="navbar navbar-light" style="background-color: #CCCC33;">
+
+			<div class="container-fluid">
+
+				<!-- Header -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{% url 'book_list' %}">Księgarnia</a>
+				</div>
+
+				<!-- Items -->
+				<div class="collapse navbar-collapse" id="topNavBar">
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="{% url 'book'%}">
+								<span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp
+								Książki
+							</a>
+						</li>
+					</ul>
+
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="{% url 'author_list'%}">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp
+								Autorzy
+							</a>
+						</li>
+					</ul>
+
+					<form class="navbar-form navbar-left">
+						 <div class="form-group">
+							<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Wyszukaj" title="Type in a name">
+						 </div>
+
+					</form>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li class="">
+							<a href="{% url 'cart'%}">
+								<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								Koszyk
+							</a>
+						</li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li class="">
+								<a href="{% url 'add_book'%}">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								Dodaj książke
+							</a>
+						</li>
+					</ul>
+
+				</div>
+
+
+			</div>
+			</nav>
+
     </head>
     <body>
-    <div class="page-header">
-        <h1><a href="/">Księgarnia</a></h1>
-    </div>
+
     <div class="content container">
         <div class="row">
             <div class="col-md-8">
@@ -19,5 +92,7 @@
             </div>
         </div>
     </div>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
