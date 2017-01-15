@@ -1,15 +1,13 @@
--PUT ma zwracać dodany rekord
 -zrobić utworzenie zakupu
 
 
 
--authentication for users and for admin
--add creating and deleting users
--add buying books
--add renting books
+-add modifing users
+
+-add buying books renting books
+
 -add adding new books/authors
 -implement storing pictures (cover of book) in DB
 -create better sample data in DBs
--add mailer
 -add HTTPS
 -dać osobno config

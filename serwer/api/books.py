@@ -1,5 +1,6 @@
-from bottle import get, post, request, route,put, response
+from bottle import get, post, request, route,put, response, auth_basic
 from models.books import Books
+from models.admins import Admins
 import json
 
 @get('/books')
@@ -12,6 +13,10 @@ def book(id):
 
 
 @put('/books')
+@auth_basic(Admins.isCredentialsValid)
 def createBook():
-    data = request.body.readlines()[0]
-    response.status = Books.createBook(data)
+    try:
+        data = request.body.readlines()[0]
+        response.status = Books.createBook(data)
+    except:
+        response.status = 400

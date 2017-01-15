@@ -1,4 +1,4 @@
-from bottle import get, post, request, route,put, response
+from bottle import get, post, request, route,put, response, auth_basic
 from models.customers import Customers
 import json
 
@@ -6,12 +6,17 @@ import json
 def customerslist():
     return Customers.getAll()
 
-@get('/customers/<id>')
-def customer(id):
-    return Customers.getById(id)
+
+@get('/customers/<username>')
+@auth_basic(Customers.isCredentialsValid)
+def customer(username):
+    return Customers.getByUsername(username)
 
 
 @put('/customers')
 def createCustomer():
-    data = request.body.readlines()[0]
-    response.status = Customers.createCustomer(data)
+    try:
+        data = request.body.readlines()[0]
+        response.status = Customers.createCustomer(data)
+    except:
+        response.status = 400

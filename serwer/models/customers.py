@@ -1,6 +1,8 @@
 from models.model import Model
 from passlib.hash import pbkdf2_sha256
 import json
+from .DBItemIdParser import DBItemIdParser
+from bson.json_util import dumps
 
 class Customers(Model):
 
@@ -40,3 +42,17 @@ class Customers(Model):
         new_user['canAddBooks'] = False
         Customers.collection.insert_one(new_user)
         return 201
+
+
+    def isCredentialsValid(username, password):
+        try:
+            hash = Customers.collection.find_one({'username':username})['password']
+            return pbkdf2_sha256.verify(password,hash)
+        except:
+            return False
+
+    def getByUsername(username):
+        collection = Customers.collection.find_one({'username' :username})
+        collection = DBItemIdParser.prettyIdRepresentation(collection)
+        del collection['password']
+        return dumps(collection,ensure_ascii=False,).encode("utf8")
