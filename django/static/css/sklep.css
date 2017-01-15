@@ -27,38 +27,60 @@
 
  .author{
 	font-size: 3rem;
-	margin-bottom: 1rem; 
+	margin-bottom: 1rem;
  }
  .book h1{
 	font-size: 4rem;
 	color: #236B8E;
-	margin-bottom: 1rem; 
+	margin-bottom: 1rem;
  }
  .book p{
 	font-size: 2rem;
-	margin-bottom: 1rem;  
+	margin-bottom: 1rem;
  }
- 
+
  .book price{
 	font-size: 2rem;
-	margin-bottom: 2rem; 
+	margin-bottom: 2rem;
  }
- 
+
  .book author a:visited,. book author a:visited,{
 	 font-size: 2rem;
-	margin-bottom: 1rem; 
+	margin-bottom: 1rem;
  }
- 
+
  .description{
 	font-size: 2rem;
-	margin-bottom: 2rem; 
+	margin-bottom: 2rem;
  }
- 
+
  .navbar{
 	 border-radius: 0;
-	 
+
  }
- 
+
+ .image-preview-input {
+    position: relative;
+    overflow: hidden;
+	margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
  * {
   box-sizing: border-box;
 }

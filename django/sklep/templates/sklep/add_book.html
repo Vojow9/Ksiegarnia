@@ -17,11 +17,37 @@
           <input type="text" class="form-control" id="ISBN" name="ISBN" placeholder="ISBN" required>
         </div>
         <div class="form-group">
+          <input type="text" class="form-control" id="quanity" name="quanity" placeholder="Ilość" required>
+        </div>
+        <div class="form-group">
           <input type="text" class="form-control" id="price" name="price" placeholder="Cena" required>
         </div>
                   <div class="form-group">
                   <textarea class="form-control" type="textarea" id="description" placeholder="Opis" maxlength="140" rows="7"></textarea>
-                  </div>
+        </div>
+
+      <div class="row">
+       <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+           <!-- image-preview-filename input [CUT FROM HERE]-->
+           <div class="input-group image-preview">
+               <input type="text" id="cover" name="cover" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+               <span class="input-group-btn">
+                   <!-- image-preview-clear button -->
+                   <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                       <span class="glyphicon glyphicon-remove"></span> Clear
+                   </button>
+                   <!-- image-preview-input -->
+                   <div class="btn btn-default image-preview-input">
+                       <span class="glyphicon glyphicon-folder-open"></span>
+                       <span class="image-preview-input-title">Przeglądaj</span>
+                       <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/> <!-- rename it -->
+                   </div>
+               </span>
+           </div><!-- /input-group image-preview [TO HERE]-->
+         </div>
+      </div>
+
+
 
       <button type="button" id="submit" onkeypress="submit()" name="submit" class="btn btn-primary pull-right">Dodaj</button>
       </form>
@@ -34,16 +60,96 @@
     var data = new FormData();
     data.append('title', 'title');
     data.append('author', 'author');
+    data.append('quanity', 'quanity');
     data.append('ISBN', 'ISBN');
     data.append('price', 'price');
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8080/books/, true);
+    xhr.open('POST', 'http://localhost:8080/books/', true);
     xhr.onload = function () {
     console.log(this.responseText);
     };
     xhr.send(data);
     }
+    $(document).on('click', '#close-preview', function(){
+        $('.image-preview').popover('hide');
+        // Hover befor close the preview
+        $('.image-preview').hover(
+            function () {
+               $('.image-preview').popover('show');
+            },
+             function () {
+               $('.image-preview').popover('hide');
+            }
+        );
+    });
+
+    $(function() {
+        // Create the close button
+        var closebtn = $('<button/>', {
+            type:"button",
+            text: 'x',
+            id: 'close-preview',
+            style: 'font-size: initial;',
+        });
+        closebtn.attr("class","close pull-right");
+        // Set the popover default content
+        $('.image-preview').popover({
+            trigger:'manual',
+            html:true,
+            title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+            content: "There's no image",
+            placement:'bottom'
+        });
+        // Clear event
+        $('.image-preview-clear').click(function(){
+            $('.image-preview').attr("data-content","").popover('hide');
+            $('.image-preview-filename').val("");
+            $('.image-preview-clear').hide();
+            $('.image-preview-input input:file').val("");
+            $(".image-preview-input-title").text("Browse");
+        });
+        // Create the preview image
+        $(".image-preview-input input:file").change(function (){
+            var img = $('<img/>', {
+                id: 'dynamic',
+                width:250,
+                height:200
+            });
+            var file = this.files[0];
+            var reader = new FileReader();
+            // Set preview image into the popover data-content
+            reader.onload = function (e) {
+                $(".image-preview-input-title").text("Change");
+                $(".image-preview-clear").show();
+                $(".image-preview-filename").val(file.name);
+                img.attr('src', e.target.result);
+                $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+            }
+            reader.readAsDataURL(file);
+        });
+
+        function encodeImageFileAsURL() {
+
+    var filesSelected = document.getElementById("inputFileToLoad").files;
+    if (filesSelected.length > 0) {
+      var fileToLoad = filesSelected[0];
+
+      var fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+        var newImage = document.createElement('img');
+        newImage.src = srcData;
+
+        document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+        alert("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+        console.log("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+      }
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  }
 </script>
 </html>
 {% endblock %}
