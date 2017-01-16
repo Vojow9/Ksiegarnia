@@ -1,7 +1,21 @@
 .body{
 	font-family: Courier New;
 }
+.container{
+    margin-top:20px;
+}
+.image-preview-input {
+    position: relative;
+    overflow: hidden;
+	margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
 
+.image-preview-input-title {
+    margin-left:2px;
+}
 .page-header  .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:visited,a:active {
     color: #ffffff;
 	font-family: Courier New;
