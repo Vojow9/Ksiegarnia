@@ -10,7 +10,7 @@ class BookCovers(Model):
 
     def getByIdOfBook(bookid,):
         collection = BookCovers.collection.find_one({'bookid' :ObjectId(bookid)})['image']
-
+        return collection
 
     # def isValidUserForm(book):
     #     try:
