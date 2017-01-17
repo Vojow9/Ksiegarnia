@@ -1,13 +1,18 @@
--zrobić utworzenie zakupu
+WAŻNE:
+-zrobić obsługę koszyka
+-dodawanie okładek książek przez klienta
+-usunąć klucz cover w books
+
+ŚREDNIO WAŻNE:
+-dodawanie książek przez klienta ma w bazie zapisywać id jako ObjectId
+
+
+MAŁO WAŻNE:
+-modyfikowanie książek
+-modyfikowanie użytkowników (np zmiana hasła)
 
 
 
--add modifing users
-
--add buying books renting books
-
--add adding new books/authors
--implement storing pictures (cover of book) in DB
--create better sample data in DBs
--add HTTPS
--dać osobno config
+WAŻNE ALE NIE PILNE
+-dodać obsługę https
+-dodać lepsze dane próbne
