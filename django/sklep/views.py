@@ -9,9 +9,14 @@ from django.template.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 
 
+
 def book_list(request):
-    books = getBooksList()
-    return render(request, 'sklep/book_list.html', {'books':books})
+	books = getBooksList()
+	av = list()
+	for book in books:
+		if int(book['availability']) > 0 or book['isEbook'] == True:
+			av.append(book)
+	return render(request, 'sklep/book_list.html', {'books':av})
 
 def book_detail(request, pk):
     book = getBookById(pk)
