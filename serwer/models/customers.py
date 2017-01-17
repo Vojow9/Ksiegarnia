@@ -3,6 +3,7 @@ from passlib.hash import pbkdf2_sha256
 import json
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps
+from bson import ObjectId
 
 class Customers(Model):
 
@@ -26,17 +27,12 @@ class Customers(Model):
         except:
             return False
 
-    def usernameIsUsed(username):
-        if Customers.collection.find_one({'username':username}) is not None:
-            return True
-        else:
-            return False
 
     def createCustomer(new_user):
         if not Customers.isValidUserForm(new_user):
             return 400
         new_user = json.loads(str(new_user,'utf8'))
-        if Customers.usernameIsUsed(new_user['username']):
+        if Customers.isValueUsed("username",new_user['username']):
             return 409
         new_user['password'] = pbkdf2_sha256.hash(new_user['password'])
         new_user['canAddBooks'] = False
@@ -51,8 +47,9 @@ class Customers(Model):
         except:
             return False
 
-    def getByUsername(username):
-        collection = Customers.collection.find_one({'username' :username})
+    #overrides Model.getById in order not to send a password
+    def getById(id):
+        collection = Customers.collection.find_one({'_id' :ObjectId(id)})
         collection = DBItemIdParser.prettyIdRepresentation(collection)
         del collection['password']
         return dumps(collection,ensure_ascii=False,).encode("utf8")

@@ -7,12 +7,13 @@ def customerslist():
     return Customers.getAll()
 
 
-@get('/customers/<username>')
+@get('/customers/<id>')
 @auth_basic(Customers.isCredentialsValid)
-def customer(username):
-    return Customers.getByUsername(username)
+def customer(id):
+    return Customers.getById(id)
 
-
+    
+#username must be unique
 @put('/customers')
 def createCustomer():
     try:

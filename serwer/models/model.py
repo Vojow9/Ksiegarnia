@@ -23,11 +23,21 @@ class Model():
 
 
     @classmethod
-    def getById(cls,id):
+    def getById(cls,id,strFormat = False):
         collection = cls.collection.find_one({'_id' :ObjectId(id)})
         collection = DBItemIdParser.prettyIdRepresentation(collection)
-        return dumps(collection,ensure_ascii=False,).encode("utf8")
+        if strFormat == False:
+            return dumps(collection,ensure_ascii=False,).encode("utf8")
+        else:
+            return collection
 
+
+    @classmethod
+    def isValueUsed(cls,key,value):
+        if cls.collection.find_one({key:value}) is not None:
+            return True
+        else:
+            return False
 
     def properLenOfObject(obj, max_len = 30):
         if not ( 0 < len(obj) < max_len ):

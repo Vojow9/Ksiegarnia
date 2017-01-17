@@ -11,7 +11,7 @@ def bookslist():
 def book(id):
     return Books.getById(id)
 
-
+#ISBN must be unique
 @put('/books')
 @auth_basic(Admins.isCredentialsValid)
 def createBook():

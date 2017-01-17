@@ -1,5 +1,5 @@
 from bottle import run
-import api.books, api.authors, api.customers
+import api.books, api.authors, api.customers, api.bookcovers
 import sys
 
 

@@ -1,5 +1,7 @@
 from models.model import Model
+from models.authors import Authors
 import json
+from bson import ObjectId
 
 class Books(Model):
     collection = Model.db.books
@@ -21,23 +23,19 @@ class Books(Model):
                 assert False
             if book['isEbook'] == False and book['lendPrice'] is not None:
                 assert False
+            for author in book['authors']:
+                if type(Authors.getById(author,strFormat = True)) == type(None):
+                    assert False
             return True
         except:
                 return False
-
-
-    def isISBNUsed(ISBN):
-        if Books.collection.find_one({'ISBN':ISBN}) is not None:
-            return True
-        else:
-            return False
 
 
     def createBook(new_book):
         if not Books.isValidUserForm(new_book):
             return 400
         new_book = json.loads(str(new_book,'utf8'))
-        if Books.isISBNUsed(new_book["ISBN"]):
+        if Books.isValueUsed("ISBN",new_book["ISBN"]):
             return 409
         Books.collection.insert_one(new_book)
         return 201
