@@ -1,0 +1,2 @@
+{"_id":{"$oid":"587b707657aac21e66b3fad6"},"password":"$pbkdf2-sha256$29000$jxHi/F/r/f8/Z8wZYwyhdA$t8nQBr37aS2/9MP6vhEyBTl46IlFWDOXQbLWlRcWpHo","login":"admin"}
+{"_id":{"$oid":"587b713757aac21e66b3fad8"},"password":"$pbkdf2-sha256$29000$vJcSQgiBsPaekxKilJLS2g$/JPua4MhNxS32HSdwKhIPGdalVRagFwFtYRMU3.GOGo","login":"admin2"}

@@ -1,0 +1,6 @@
+PUT
+http://localhost:8080/customers
+
+
+
+{ "address": "1111111111111", "username": "aaaaaa", "gender": "Female", "email": "blele0@shutterfly.com", "first_name": "bbbbbbbbbbbbbbb", "password": "123123123", "last_name": "Washington" }
