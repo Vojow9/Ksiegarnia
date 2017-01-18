@@ -1,11 +1,10 @@
 WAŻNE:
 -zrobić obsługę koszyka
--przykładowa baza danych obrazków
-
 
 
 ŚREDNIO WAŻNE:
 -dodawanie książek przez klienta ma w bazie zapisywać id jako ObjectId
+-usuwanie rekordów
 
 
 MAŁO WAŻNE:
