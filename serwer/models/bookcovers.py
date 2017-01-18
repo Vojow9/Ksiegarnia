@@ -24,6 +24,9 @@ class BookCovers(Model):
         BookCovers.collection.insert_one({'bookid' :ObjectId(bookid) , 'image':Binary(bdata)})
 
 
+    #overrides
+    def deleteById(bookid):
+        BookCovers.collection.delete_one({'bookid' :ObjectId(bookid)})
     # def isValidUserForm(book):
     #     try:
     #         book = json.loads(str(book,'utf8'))

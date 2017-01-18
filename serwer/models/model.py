@@ -33,7 +33,7 @@ class Model():
 
     @classmethod
     def deleteById(cls, id):
-        cls.collection.remove_one({'_id' :ObjectId(id)})
+        cls.collection.delete_one({'_id' :ObjectId(id)})
 
 
     @classmethod

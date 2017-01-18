@@ -1,5 +1,5 @@
-from bottle import get, post, request, route,put, response, auth_basic
-from models.bookscovers import BookCovers
+from bottle import get, post, delete,    request, route,put, response, auth_basic
+from models.bookcovers import BookCovers
 from models.admins import Admins
 import json
 
@@ -14,9 +14,16 @@ def bookid(bookid):
 
 
 @post('/bookcovers/<bookid>')
+@auth_basic(Admins.isCredentialsValid)
 def createbybookid(bookid):
     bdata = request.body.read()
     return BookCovers.createByIdOfBook(bookid, bdata)
+
+@delete('/bookcovers/<bookid>')
+@auth_basic(Admins.isCredentialsValid)
+def deletebybookid(bookid):
+    return BookCovers.deleteById(bookid)
+
 
 # #ISBN must be unique
 # @put('/books')
