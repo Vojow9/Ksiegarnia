@@ -15,8 +15,8 @@ def book(id):
 @put('/books')
 @auth_basic(Admins.isCredentialsValid)
 def createBook():
-    try:
-        data = request.body.readlines()[0]
-        response.status = Books.createBook(data)
-    except:
-        response.status = 400
+    # try:
+    data = request.body.readlines()[0]
+    response.status = Books.createBook(data)
+    # except:
+    #     response.status = 400

@@ -4,13 +4,25 @@ import json
 from bson import ObjectId
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps,default
+from bson import Binary
 
 class BookCovers(Model):
     collection = Model.db.bookcovers
 
     def getByIdOfBook(bookid,):
+        print(type(bookid))
+        print(bookid)
         collection = BookCovers.collection.find_one({'bookid' :ObjectId(bookid)})['image']
+        print(type(collection))
         return collection
+
+
+
+
+    def createByIdOfBook(bookid, bdata):
+        print(type(bdata))
+        BookCovers.collection.insert_one({'bookid' :ObjectId(bookid) , 'image':Binary(bdata)})
+
 
     # def isValidUserForm(book):
     #     try:

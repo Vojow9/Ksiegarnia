@@ -11,6 +11,13 @@ def bookscoverslist():
 def bookid(bookid):
     return BookCovers.getByIdOfBook(bookid)
 
+
+
+@put('/bookcovers/<bookid>')
+def createbybookid(bookid):
+    bdata = request.body.read()
+    return BookCovers.createByIdOfBook(bookid, bdata)
+
 # #ISBN must be unique
 # @put('/books')
 # @auth_basic(Admins.isCredentialsValid)

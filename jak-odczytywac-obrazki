@@ -1,14 +1,12 @@
-
-
 np jak odczytywać okładki na przykładzie pythona:
 
 
-
-#pobieranie danych
+import requests
+#pobieranie danych z serwera REST
 c = requests.get('http://localhost:8080/bookcovers/<id-książki>')
 
 #na przykład:
-c = requests.get('http://localhost:8080/bookcovers/5836048f57aac220c4c87383')
+c = requests.get(	'http://localhost:8080/bookcovers/5836048f57aac220c4c87383')
 
 
 c.content - to już jest nasz obrazek w postaci bajtów
@@ -18,5 +16,18 @@ c.content - to już jest nasz obrazek w postaci bajtów
 
  o = open('a.jpg','wb') #otwieramy plik obrazka w trybie bajtów oraz w trybie zapisów
 
-
 o.write(c.content) # zapisanie obrazka na dysku
+
+
+
+a teraz chcemy na wysłać obrazek na serwer
+import requests
+o = open('zolw.jpg', 'rb').read() # otwieranie obrazka i wczytanie w postaci bajtów do zmiennej o
+
+requests.put('http://localhost:8080/bookcovers/<id>',data = o)
+gdzie <id> to id książki do której chcemy załączyć obrazek
+
+dla przykładu:
+requests.put('http://localhost:8080/bookcovers/587fbd9257aac262e3313f72',data = o)
+
+
