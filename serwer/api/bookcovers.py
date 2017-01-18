@@ -13,7 +13,7 @@ def bookid(bookid):
 
 
 
-@put('/bookcovers/<bookid>')
+@post('/bookcovers/<bookid>')
 def createbybookid(bookid):
     bdata = request.body.read()
     return BookCovers.createByIdOfBook(bookid, bdata)

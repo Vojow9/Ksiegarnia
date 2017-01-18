@@ -11,7 +11,7 @@ def author(id):
     return Authors.getById(id)
 
 #name must be unique
-@put('/authors')
+@post('/authors')
 @auth_basic(Admins.isCredentialsValid)
 def createAuthor():
     try:

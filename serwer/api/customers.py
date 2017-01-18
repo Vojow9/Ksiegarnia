@@ -12,9 +12,9 @@ def customerslist():
 def customer(id):
     return Customers.getById(id)
 
-    
+
 #username must be unique
-@put('/customers')
+@post('/customers')
 def createCustomer():
     try:
         data = request.body.readlines()[0]
