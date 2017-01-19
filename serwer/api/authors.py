@@ -1,4 +1,4 @@
-from bottle import get, post, put, auth_basic, response, request
+from bottle import get, post, put, delete,  auth_basic, response, request
 from models.authors import Authors
 from models.admins import Admins
 
@@ -19,3 +19,10 @@ def createAuthor():
         response.status = Authors.createAuthor(data)
     except:
         response.status = 400
+
+
+#403 if author is author in any book
+@delete('/authors/<id>')
+@auth_basic(Admins.isCredentialsValid)
+def deleteauthor(id):
+    response.status =  Authors.deleteById(id)

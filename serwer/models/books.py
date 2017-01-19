@@ -33,6 +33,13 @@ class Books(Model):
             return False
 
 
+    def isAuthorInAnyBook(author):
+        authorsList = []
+        for book in list(Books.collection.find()):
+            authorsList.extend(book['authors'])
+        return ObjectId(author) in authorsList
+
+
     def deleteById(id):
         if not Books.isValueUsed('_id',ObjectId(id)):
             return 404
@@ -40,10 +47,17 @@ class Books(Model):
         Books.collection.delete_one({'_id' :ObjectId(id)})
         return 200
 
+    def changeAuthorStrIdToObjectId(authorslist):
+        new_list = list()
+        for a in authorslist:
+            new_list.append(ObjectId(a))
+        return new_list
+
     def createBook(new_book):
         if not Books.isValidBookForm(new_book):
             return 400
         new_book = json.loads(str(new_book,'utf8'))
+        new_book['authors'] = Books.changeAuthorStrIdToObjectId(new_book['authors'])
         if Books.isValueUsed("ISBN",new_book["ISBN"]):
             return 409
         Books.collection.insert_one(new_book)

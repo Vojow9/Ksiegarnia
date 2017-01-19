@@ -1,9 +1,9 @@
 from models.model import Model
 import json
+from bson import ObjectId
+
 class Authors(Model):
     collection = Model.db.authors
-
-
 
     def isValidAuthorForm(author):
         try:
@@ -23,6 +23,16 @@ class Authors(Model):
             return True
         else:
             return False
+
+    #overrides
+    def deleteById(id):
+        from models.books import Books
+        if Books.isAuthorInAnyBook(id):
+            return 403
+        if not Authors.isValueUsed('_id',ObjectId(id)):
+            return 404
+        Authors.collection.delete_one({'_id' :ObjectId(id)})
+        return 200
 
     def createAuthor(new_author):
         if not Authors.isValidAuthorForm(new_author):

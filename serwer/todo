@@ -1,18 +1,22 @@
 WAŻNE:
 -zrobić obsługę koszyka
+-testowanie żeby nie zwracało rzeczy bez sensu
+-wrzucenie wszedzie try excepty, zeby sie nic nie partoliło
+
 
 
 ŚREDNIO WAŻNE:
--dodawanie książek przez klienta ma w bazie zapisywać id jako ObjectId
--usuwanie rekordów
 
 
 MAŁO WAŻNE:
 -modyfikowanie książek
+-modyfikowanie autorów
+-modyfikowanie obrazków
+
 -modyfikowanie użytkowników (np zmiana hasła)
 
 
 
 WAŻNE ALE NIE PILNE
 -dodać obsługę https
--dodać lepsze dane próbne
+-dodać lepsze dane próbne- to ma zrobić kasia
