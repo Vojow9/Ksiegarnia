@@ -1,20 +1,17 @@
 WAŻNE:
--zrobić obsługę koszyka
 -testowanie żeby nie zwracało rzeczy bez sensu
 -wrzucenie wszedzie try excepty, zeby sie nic nie partoliło
 
 
 
 ŚREDNIO WAŻNE:
+-modyfikowanie użytkowników (np zmiana hasła)
 
 
 MAŁO WAŻNE:
 -modyfikowanie książek
 -modyfikowanie autorów
 -modyfikowanie obrazków
-
--modyfikowanie użytkowników (np zmiana hasła)
-
 
 
 WAŻNE ALE NIE PILNE
