@@ -1,4 +1,4 @@
-np jak odczytywać okładki na przykładzie pythona:
+np jak odczytywać okładki na przykładzie pythona3:
 
 
 import requests
@@ -29,5 +29,3 @@ gdzie <id> to id książki do której chcemy załączyć obrazek
 
 dla przykładu:
 requests.put('http://localhost:8080/bookcovers/587fbd9257aac262e3313f72',data = o)
-
-

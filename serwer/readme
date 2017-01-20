@@ -7,4 +7,15 @@ uruchamianie:
 
 python3 run.py
 
+
+
+używamy basic auth (np w POSTmanie)
+-------------------------
 api dostępne jest w api/books.py
+-------------------------
+zapytania get:
+generalnie jak wysyłać POSTem do api:
+wysyłamy JSONem bez znaków końca linii
+możecie skopiować sobie to co wychodzi getem i spróbować wysłać,
+oczywiście trzeba zmienić unikalne wartości, oraz usunąć id
+-------------------------

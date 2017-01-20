@@ -33,6 +33,8 @@ def customerslist(id):
     return Customers.getAllBooks(id)
 
 
+#request must be list of 'id' of books you want to buy/borrow
+#for example:
 #400 invalid request form or sth else
 #403 ebook already rented by user
 #201 success
