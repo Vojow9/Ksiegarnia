@@ -15,6 +15,9 @@ def customer(id):
 
 
 #username must be unique
+#400 invalid form
+#409 username already in db
+#201 success
 @post('/customers')
 def createCustomer():
     try:
@@ -30,13 +33,14 @@ def customerslist(id):
     return Customers.getAllBooks(id)
 
 
-
+#400 invalid request form or sth else
+#403 ebook already rented by user
+#201 success
 @post('/customers/availablebooks/<id>')
 @auth_basic(Customers.isCredentialsValid)
 def customerslist(id):
-    books = request.body.readlines()[0]
-    response.status =  Customers.buyBooks(id,books)
-# @post('/customers/<id>/availabebooks')
-# @auth_basic(Customers.isCredentialsValid)
-# def buybooks(id):
-#     return Customers.getAllBooks(id)
+    try:
+        books = request.body.readlines()[0]
+        response.status =  Customers.buyBooks(id,books)
+    except:
+        response.status = 400

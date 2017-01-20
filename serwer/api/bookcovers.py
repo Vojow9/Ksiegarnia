@@ -3,6 +3,7 @@ from models.bookcovers import BookCovers
 from models.admins import Admins
 import json
 
+
 @get('/bookcovers')
 def bookscoverslist():
     return BookCovers.getAll()
@@ -11,26 +12,24 @@ def bookscoverslist():
 def bookid(bookid):
     return BookCovers.getByIdOfBook(bookid)
 
-
-
+#409 already exists cover for this book
+#400 invalid request or no such book id in books collection
+#201 success
 @post('/bookcovers/<bookid>')
 @auth_basic(Admins.isCredentialsValid)
 def createbybookid(bookid):
-    bdata = request.body.read()
-    return BookCovers.createByIdOfBook(bookid, bdata)
+    try:
+        bdata = request.body.read()
+        response.status  = BookCovers.createByIdOfBook(bookid, bdata)
+    except:
+        response.status = 400
 
+
+#400 no such id, invalid request or sth else
 @delete('/bookcovers/<bookid>')
 @auth_basic(Admins.isCredentialsValid)
 def deletebybookid(bookid):
-    return BookCovers.deleteById(bookid)
-
-
-# #ISBN must be unique
-# @put('/books')
-# @auth_basic(Admins.isCredentialsValid)
-# def createBook():
-#     try:
-#         data = request.body.readlines()[0]
-#         response.status = Books.createBook(data)
-#     except:
-#         response.status = 400
+    try:
+        return BookCovers.deleteById(bookid)
+    except:
+        response.status = 400

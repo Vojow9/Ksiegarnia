@@ -12,6 +12,9 @@ def book(id):
     return Books.getById(id)
 
 #ISBN must be unique
+#409 if ISBN already in db
+#400 invalid request form or sth else
+#201 success
 @post('/books')
 @auth_basic(Admins.isCredentialsValid)
 def createBook():
@@ -22,7 +25,13 @@ def createBook():
         response.status = 400
 
 
+#404 boo id k not in db
+#400 invalid id form or sth else
+#200 success
 @delete('/books/<id>')
 @auth_basic(Admins.isCredentialsValid)
 def deletebyid(id):
-    response.status = Books.deleteById(id)
+    try:
+        response.status = Books.deleteById(id)
+    except:
+        response.status = 400
