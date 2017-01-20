@@ -3,6 +3,8 @@ from models.books import Books
 from models.admins import Admins
 import json
 
+
+#teraz zostaje tylko do testowania, normalnie usune ze wzgledow bezpieczenstwa
 @get('/books')
 def bookslist():
     return Books.getAll()

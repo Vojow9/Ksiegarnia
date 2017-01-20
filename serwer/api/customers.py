@@ -2,6 +2,8 @@ from bottle import get, post, request, route,put, response, auth_basic
 from models.customers import Customers
 import json
 
+
+#teraz zostaje tylko do testowania, normalnie usune ze wzgledow bezpieczenstwa
 @get('/customers')
 def customerslist():
     return Customers.getAll()
