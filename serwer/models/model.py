@@ -31,6 +31,10 @@ class Model():
         else:
             return collection
 
+    @classmethod
+    def deleteById(cls, id):
+        cls.collection.delete_one({'_id' :ObjectId(id)})
+
 
     @classmethod
     def isValueUsed(cls,key,value):

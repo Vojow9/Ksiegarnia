@@ -4,6 +4,10 @@ import json
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps
 from bson import ObjectId
+import ast
+from datetime import datetime, timedelta
+from .DBItemIdParser import DBItemIdParser
+
 
 class Customers(Model):
 
@@ -53,3 +57,47 @@ class Customers(Model):
         collection = DBItemIdParser.prettyIdRepresentation(collection)
         del collection['password']
         return dumps(collection,ensure_ascii=False,).encode("utf8")
+
+
+
+    def getAllBooks(id):
+        books = Customers.collection.find_one({'_id' :ObjectId(id)})['books']
+        for i in range(len(books)):
+            books[i]['bookid'] = str(books[i]['bookid'])
+            books[i]['purchasedate'] = str(books[i]['purchasedate'])
+            try:
+                expdate = books[i]['expdate']
+                books[i]['expired'] = False if expdate > datetime.now() else True
+                books[i]['expdate'] = str(expdate)
+            except KeyError:
+                pass
+        return dumps(books,ensure_ascii=False,).encode("utf8")
+
+    def buyBooks(id,books):
+        from models.books import Books
+        books = ast.literal_eval(str(books,'utf-8'))
+        if len(books) == 0:
+            return 400
+        if not Books.isBooksIdsValidId(books):
+            return 400
+        if Customers.isEbookAlreadyRented(id, books):
+            return 403
+        for bookid in books:
+            new_book  = {'bookid':ObjectId(bookid),
+                    'purchasedate':datetime.now(),
+                    }
+            if Books.isEbook(bookid):
+                new_book['expdate'] = datetime.now() + timedelta(days=30)
+                new_book['expired'] = False
+            Customers.collection.update({'_id': ObjectId(id)}, {'$push': {'books': new_book}})
+        return 201
+
+
+    def isEbookAlreadyRented(customerid, bookslist):
+        from models.books import Books
+        bookslist = [ObjectId(bookid) for bookid in bookslist]
+        customers_owned_books = Customers.collection.find_one({'_id':ObjectId(customerid)})['books']
+        customers_owned_ebooks = [b['bookid'] for b in customers_owned_books if 'expdate' in list(b)]
+        intersection = [b for b in bookslist if b in customers_owned_ebooks]
+        if len(intersection)>0:
+            return True
