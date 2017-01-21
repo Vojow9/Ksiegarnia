@@ -1,5 +1,6 @@
 WAŻNE:
 -testowanie żeby nie zwracało rzeczy bez sensu- kasia?
+-dodanie, żeby admin mógł zmodyfikować ilość książek
 
 ŚREDNIO WAŻNE:
 -modyfikowanie użytkowników (np zmiana hasła)
@@ -14,3 +15,8 @@ MAŁO WAŻNE:
 WAŻNE ALE NIE PILNE
 -dodać obsługę https
 -dodać lepsze dane próbne- to ma zrobić kasia
+
+
+
+zrobione:
+-tworzenie użytkownika- czy jest books?z
