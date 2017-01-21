@@ -66,5 +66,38 @@ class Books(Model):
         return True
 
 
+    def isBooksAvailable(bookslist):
+        bookslist = [ObjectId(bookid) for bookid in bookslist]
+        for b in bookslist:
+            quantity = bookslist.count(b)
+            if Books.collection.find_one({'_id':b})['isEbook'] == False and \
+             Books.collection.find_one({'_id':b})['availability'] < quantity:
+                return False
+        return True
+
+
+    def isMoreThanOneEbook(bookslist):
+        bookslist = [ObjectId(bookid) for bookid in bookslist]
+        for b in bookslist:
+            quantity = bookslist.count(b)
+            if Books.collection.find_one({'_id':b})['isEbook'] == True and quantity >= 2:
+                return True
+        return False
+
+
+    def decreaseAvailability(bookslist):
+        bookslist = [ObjectId(bookid) for bookid in bookslist]
+        digested = []
+        for b in bookslist:
+            if b in digested:
+                break
+            else:
+                digested.append(b)
+            quantityOfBuyed = bookslist.count(b)
+            quantityInDb = Books.collection.find_one({'_id':b})['availability']
+            if Books.collection.find_one({'_id':b})['isEbook'] == False:
+                Books.collection.update_one({'_id':b}, {'$set': {'availability': quantityInDb - quantityOfBuyed}})
+
+
     def isEbook(id):
         return Books.collection.find_one({'_id':ObjectId(id)})['isEbook']

@@ -39,7 +39,7 @@ class Customers(Model):
         if Customers.isValueUsed("username",new_user['username']):
             return 409
         new_user['password'] = pbkdf2_sha256.hash(new_user['password'])
-        new_user['canAddBooks'] = False
+        new_user['books'] = []
         Customers.collection.insert_one(new_user)
         return 201
 
@@ -75,11 +75,15 @@ class Customers(Model):
 
     def buyBooks(id,books):
         from models.books import Books
-        books = ast.literal_eval(str(books,'utf-8'))
+        books = ast.literal_eval(str(books,'utf-8')) #conerts to python list with strings
         if len(books) == 0:
             return 400
         if not Books.isBooksIdsValidId(books):
             return 400
+        if not Books.isBooksAvailable(books):
+            return 403
+        if Books.isMoreThanOneEbook(books):
+            return 403
         if Customers.isEbookAlreadyRented(id, books):
             return 403
         for bookid in books:
@@ -90,7 +94,10 @@ class Customers(Model):
                 new_book['expdate'] = datetime.now() + timedelta(days=30)
                 new_book['expired'] = False
             Customers.collection.update({'_id': ObjectId(id)}, {'$push': {'books': new_book}})
+        Books.decreaseAvailability(books)
         return 201
+
+
 
 
     def isEbookAlreadyRented(customerid, bookslist):

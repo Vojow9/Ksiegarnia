@@ -36,9 +36,11 @@ def customerslist(id):
 
 
 #request must be list of 'id' of books you want to buy/borrow
-#for example:
+# if you want to buy two same books place it twice, for example : ["5836048f57aac220c4c87383", "5836048f57aac220c4c87383"]
 #400 invalid request form or sth else
-#403 ebook already rented by user
+#403 ebook already rented by user or not enough books in shop
+#403 you cannot rent more than one ebook
+#403 if your  ebook is not expired, you cant rent this ebook
 #201 success
 @post('/customers/availablebooks/<id>')
 @auth_basic(Customers.isCredentialsValid)
