@@ -45,8 +45,8 @@ def customerslist(id):
 @post('/customers/availablebooks/<id>')
 @auth_basic(Customers.isCredentialsValid)
 def customerslist(id):
-    # try:
-    books = request.body.readlines()[0]
-    response.status =  Customers.buyBooks(id,books)
-    # except:
-    #     response.status = 400
+    try:
+        books = request.body.readlines()[0]
+        response.status =  Customers.buyBooks(id,books)
+    except:
+        response.status = 400
