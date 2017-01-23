@@ -1,6 +1,9 @@
 WAŻNE:
 -testowanie żeby nie zwracało rzeczy bez sensu- kasia?
 -dodanie, żeby admin mógł zmodyfikować ilość książek
+-dodanie jaki autor napisał jakie książki
+-sprawdzanie w PUT autorow czy zawsze jak ebook to mamy null availability i odwrotnie
+
 
 ŚREDNIO WAŻNE:
 -modyfikowanie użytkowników (np zmiana hasła)
