@@ -5,6 +5,11 @@ def getBooksList():
     books = requests.get('http://localhost:8080/books').json()
     return books
 
+def getBookCoverById(id):
+    cover = requsts.get('http://localhost:8080/bookcovers/'+id)
+    o = open('static/'+id+'.jpg','wb')
+    o.write(cover.content)
+    return o
 
 def getBookById(id):
     books = requests.get('http://localhost:8080/books/' + id).json()
