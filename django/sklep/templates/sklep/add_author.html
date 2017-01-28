@@ -60,9 +60,9 @@ function submit(){
     var xhr = createCORSRequest('POST','http://localhost:8080/authors')
     //xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));*/
     var xhr = new XMLHttpRequest();
-    xhr.open('POST','http://localhost:8080/books',true);
+    xhr.open('POST','http://localhost:8080/authors',true);
     xhr.withCredentials = true;
-    xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwert'));
+    xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
     xhr.onload = function () {
     console.log(this.responseText);
     };
