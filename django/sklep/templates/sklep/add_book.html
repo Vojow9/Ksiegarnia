@@ -4,11 +4,11 @@
 <div class="container">
 <div class="col-md-5">
   <div class="form-area">
-      <form role="form">
+      <form role="form" id="myform" class="myform">
       <br style="clear:both">
                   <h3 style="margin-bottom: 25px; text-align: center;">Dodaj ksiązke</h3>
           <div class="form-group">
-          <input type="text" class="form-control" id="title" name="title" placeholder="Tytuł" required>
+          <input type="text" class="form-control" id="title" name="title"  placeholder="Tytuł" required>
         </div>
         <div class="form-group">
           <input type="text" class="form-control" id="author" name="author" placeholder="Autor" required>
@@ -22,18 +22,15 @@
         <div class="form-group">
           <input type="text" class="form-control" id="price" name="price" placeholder="Cena" >
         </div>
-		 <div class="form-group">
-          <input type="text" class="form-control" id="lendPrice" name="lendPrice" placeholder="Cena wypozyczenia">
-        </div>
 		<div class="form-group">
           <input type="text" class="form-control" id="isEbook" name="isEbook" placeholder="Czy jest ebookiem" required>
         </div>
         <div class="form-group">
-                  <textarea class="form-control" type="textarea" id="description" name="description" placeholder="Opis" maxlength="140" rows="7"></textarea>
+                  <input class="form-control" type="textarea" id="description" name="description" placeholder="Opis" maxlength="140" rows="7"></textarea>
         </div>
 
 		 <div class="form-group">
-                  <textarea class="form-control" type="textarea" id="tableOfContents" name="tableOfContents" placeholder="Lista rozdziałów" maxlength="140" rows="7"></textarea>
+                  <input class="form-control" type="textarea" id="tableOfContents" name="tableOfContents" placeholder="Lista rozdziałów" maxlength="140" rows="7"></textarea>
         </div>
 
 
@@ -61,19 +58,11 @@
 document.getElementById("submit").onclick = function() {submit()};
 
 function submit(){
-    var data = new FormData();
-    	data.append('price', 'price');
-	data.append('author', 'author');
-    data.append('title', 'title');
-    data.append('quanity', 'quanity');
-	data.append('lendPrice','lendPrice');
-	data.append('description','description');
-    data.append('ISBN', 'ISBN');
-	data.append('isEbook','isEbook');
-	data.append('tableOfContents','tableOfContents');
 
+  var array = $("form.myform").serializeArray();
+  var data = JSON.parse(JSON.stringify(array));
 
-	console.log(data);
+    console.log(data);
     var username = 'admin';
     var password = 'qwerty';
     function createCORSRequest(method, url) {
@@ -99,13 +88,16 @@ function submit(){
       }
       return xhr;
     }
-    var xhr = createCORSRequest('POST','http://localhost:8080/books/')
-    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST','http://localhost:8080/books',true);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwert'));
     xhr.onload = function () {
     console.log(this.responseText);
     };
     xhr.send(data);
     };
+
 
 
 
