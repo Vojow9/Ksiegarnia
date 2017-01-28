@@ -2,6 +2,8 @@ from models.model import Model
 import json
 from bson import ObjectId
 
+import models.books
+
 class Authors(Model):
     collection = Model.db.authors
 
@@ -26,8 +28,8 @@ class Authors(Model):
 
     #overrides
     def deleteById(id):
-        from models.books import Books
-        if Books.isAuthorInAnyBook(id):
+
+        if models.books.Books.isAuthorInAnyBook(id):
             return 403
         if not Authors.isValueUsed('_id',ObjectId(id)):
             return 404

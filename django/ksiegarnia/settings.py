@@ -40,7 +40,8 @@ INSTALLED_APPS = (
 	'sklep',
 	'rest_framework',
     'rest',
-    'javascript_settings'
+    'javascript_settings',
+    'corsheaders',
 
 )
 
@@ -53,6 +54,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 ROOT_URLCONF = 'ksiegarnia.urls'
@@ -83,7 +86,7 @@ SOCIAL_AUTH_FACEBOOK_KEY = '1230595910347783'
 
 SOCIAL_AUTH_FACEBOOK_SECRET = 'f1b17e40d62a945d0310cb822478d4dc'
 
-
+CORS_ORIGIN_ALLOW_ALL = True
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 # Database

@@ -1,11 +1,14 @@
 from models.model import Model
-from models.authors import Authors
-from models.bookcovers import BookCovers
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps,default
 import json
 from bson import ObjectId
 
+# from models.authors import Authors
+# from models.bookcovers import BookCovers
+
+import models.authors
+import models.bookcovers
 
 class Books(Model):
     collection = Model.db.books
@@ -25,7 +28,7 @@ class Books(Model):
             if type(book['tableOfContents']) != list:
                 assert False
             for author in book['authors']:
-                if type(Authors.getById(author,strFormat = True)) == type(None):
+                if type(models.authors.Authors.getById(author,strFormat = True)) == type(None):
                     assert False
             return True
         except:
@@ -48,7 +51,7 @@ class Books(Model):
     def deleteById(id):
         if not Books.isValueUsed('_id',ObjectId(id)):
             return 404
-        BookCovers.deleteById(id)
+        models.bookcovers.BookCovers.deleteById(id)
         Books.collection.delete_one({'_id' :ObjectId(id)})
         return 200
 

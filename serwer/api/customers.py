@@ -2,14 +2,18 @@ from bottle import get, post, request, route,put, response, auth_basic
 from models.customers import Customers
 import json
 
+from api.cors import enable_cors
+
 
 #teraz zostaje tylko do testowania, normalnie usune ze wzgledow bezpieczenstwa
 @get('/customers')
+@enable_cors
 def customerslist():
     return Customers.getAll()
 
 
 @get('/customers/<id>')
+@enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def customer(id):
     return Customers.getById(id)
@@ -18,6 +22,7 @@ def customer(id):
 # update pasword
 # send { 'password':'abc}
 @put('/customers/<id>')
+@enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def changepasswd(id):
     try:
@@ -31,6 +36,7 @@ def changepasswd(id):
 #409 username already in db
 #201 success
 @post('/customers')
+@enable_cors
 def createCustomer():
     try:
         data = request.body.readlines()[0]
@@ -40,6 +46,7 @@ def createCustomer():
 
 
 @get('/customers/availablebooks/<id>')
+@enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def customerslist(id):
     return Customers.getAllBooks(id)
@@ -53,6 +60,7 @@ def customerslist(id):
 #403 if your  ebook is not expired, you cant rent this ebook
 #201 success
 @post('/customers/availablebooks/<id>')
+@enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def customerslist(id):
     try:

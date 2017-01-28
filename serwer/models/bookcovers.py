@@ -1,10 +1,11 @@
-from models.model import Model
-from models.authors import Authors
 import json
 from bson import ObjectId
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps,default
 from bson import Binary
+
+from models.model import Model
+import models.books
 
 class BookCovers(Model):
     collection = Model.db.bookcovers
@@ -18,8 +19,7 @@ class BookCovers(Model):
 
 
     def createByIdOfBook(bookid, bdata):
-        from models.books import Books
-        if type(Books.collection.find_one({'_id' :ObjectId(bookid)})) == type(None):
+        if type(models.books.Books.collection.find_one({'_id' :ObjectId(bookid)})) == type(None):
             return 400
         if type(BookCovers.collection.find_one({'bookid' :ObjectId(bookid)})) != type(None):
             return 409

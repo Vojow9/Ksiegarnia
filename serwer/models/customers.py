@@ -8,6 +8,8 @@ import ast
 from datetime import datetime, timedelta
 from .DBItemIdParser import DBItemIdParser
 
+import models.books
+
 
 class Customers(Model):
 
@@ -83,15 +85,14 @@ class Customers(Model):
         return dumps(books,ensure_ascii=False,).encode("utf8")
 
     def buyBooks(id,books):
-        from models.books import Books
         books = ast.literal_eval(str(books,'utf-8')) #conerts to python list with strings
         if len(books) == 0:
             return 400
-        if not Books.isBooksIdsValidId(books):
+        if not models.books.Books.isBooksIdsValidId(books):
             return 400
-        if not Books.isBooksAvailable(books):
+        if not models.books.Books.isBooksAvailable(books):
             return 403
-        if Books.isMoreThanOneEbook(books):
+        if models.books.Books.isMoreThanOneEbook(books):
             return 403
         if Customers.isEbookAlreadyRented(id, books):
             return 403
@@ -99,18 +100,17 @@ class Customers(Model):
             new_book  = {'bookid':ObjectId(bookid),
                     'purchasedate':datetime.now(),
                     }
-            if Books.isEbook(bookid):
+            if models.books.Books.isEbook(bookid):
                 new_book['expdate'] = datetime.now() + timedelta(days=30)
                 new_book['expired'] = False
             Customers.collection.update({'_id': ObjectId(id)}, {'$push': {'books': new_book}})
-        Books.decreaseAvailability(books)
+        models.books.Books.decreaseAvailability(books)
         return 201
 
 
 
 
     def isEbookAlreadyRented(customerid, bookslist):
-        from models.books import Books
         bookslist = [ObjectId(bookid) for bookid in bookslist]
         customers_owned_books = Customers.collection.find_one({'_id':ObjectId(customerid)})['books']
         customers_owned_ebooks = [b['bookid'] for b in customers_owned_books if 'expdate' in list(b)]
