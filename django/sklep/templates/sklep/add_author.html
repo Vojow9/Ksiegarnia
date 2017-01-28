@@ -1,0 +1,78 @@
+{% extends 'sklep/base.html' %}
+{% block content %}
+
+<div class="container">
+<div class="col-md-5">
+  <div class="form-area">
+      <form role="form" id="myform" class="myform">
+      <br style="clear:both">
+                  <h3 style="margin-bottom: 25px; text-align: center;">Dodaj autor</h3>
+          <div class="form-group">
+          <input type="text" class="form-control" id="name" name="name"  placeholder="Nazwa" required>
+        </div>
+          <input class="form-control" type="text" id="description" name="description" placeholder="Opis" maxlength="140" rows="7"></textarea>
+        </div>
+
+
+      <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Dodaj</button>
+      </form>
+  </div>
+</div>
+</div>
+
+<script>
+
+document.getElementById("submit").onclick = function() {submit()};
+
+
+
+function submit(){
+
+  var array = $("form.myform").serializeArray();
+  var data = JSON.parse(JSON.stringify(array));
+
+    console.log(data);
+    //var username = 'admin';
+    // var password = 'qwerty';
+  /*  function createCORSRequest(method, url) {
+      var xhr = new XMLHttpRequest();
+      if ("withCredentials" in xhr) {
+
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        xhr.open(method, url, true);
+
+      } else if (typeof XDomainRequest != "undefined") {
+
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+
+      } else {
+
+        // Otherwise, CORS is not supported by the browser.
+        xhr = null;
+
+      }
+      return xhr;
+    }
+    var xhr = createCORSRequest('POST','http://localhost:8080/authors')
+    //xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));*/
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST','http://localhost:8080/authors',true);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
+    xhr.onload = function () {
+    console.log(this.responseText);
+    };
+    xhr.send(data);
+    };
+
+
+
+
+
+</script>
+
+{% endblock %}
