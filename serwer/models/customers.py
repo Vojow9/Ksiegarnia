@@ -44,6 +44,15 @@ class Customers(Model):
         return 201
 
 
+    def UpdatePasswd(custid , passwdData):
+        passwdData = json.loads(str(passwdData,'utf8'))
+        passwd = passwdData['password']
+        passwd = pbkdf2_sha256.hash(passwd)
+        Customers.collection.update_one({'_id':ObjectId(custid)}, {"$set":{'password':passwd}})
+        return 201
+
+
+
     def isCredentialsValid(username, password):
         try:
             hash = Customers.collection.find_one({'username':username})['password']

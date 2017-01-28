@@ -1,5 +1,6 @@
 from bottle import get, post, put, delete,  auth_basic, response, request
 from models.authors import Authors
+from models.books import Books
 from models.admins import Admins
 
 
@@ -7,9 +8,14 @@ from models.admins import Admins
 def authorslist():
     return Authors.getAll()
 
+
+
+
 @get('/authors/<id>')
 def author(id):
     return Authors.getById(id)
+
+
 
 #name must be unique
 #409 if name of author is already used
