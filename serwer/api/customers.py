@@ -15,6 +15,16 @@ def customer(id):
     return Customers.getById(id)
 
 
+# update pasword
+# send { 'password':'abc}
+@put('/customers/<id>')
+@auth_basic(Customers.isCredentialsValid)
+def changepasswd(id):
+    try:
+        data = request.body.readlines()[0]
+        response.status = Customers.UpdatePasswd(id,data)
+    except:
+        response.status = 400
 
 #username must be unique
 #400 invalid form

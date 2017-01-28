@@ -13,6 +13,13 @@ def bookslist():
 def book(id):
     return Books.getById(id)
 
+
+
+#return all books written by an author
+@get('/books/author/<id>')
+def book(id):
+    return Books.getAllOfAuthor(id)
+
 #ISBN must be unique
 #409 if ISBN already in db
 #400 invalid request form or sth else
@@ -23,6 +30,18 @@ def createBook():
     try:
         data = request.body.readlines()[0]
         response.status = Books.createBook(data)
+    except:
+        response.status = 400
+
+
+# update availabity
+# send { 'availabity':10}
+@put('/books/<id>')
+@auth_basic(Admins.isCredentialsValid)
+def uptdAvailability(id):
+    try:
+        data = request.body.readlines()[0]
+        response.status = Books.UpdateAvailability(id,data)
     except:
         response.status = 400
 

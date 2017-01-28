@@ -1,25 +1,8 @@
 WAŻNE:
--testowanie żeby nie zwracało rzeczy bez sensu- kasia?
--dodanie, żeby admin mógł zmodyfikować ilość książek
--dodanie jaki autor napisał jakie książki
--sprawdzanie w PUT autorow czy zawsze jak ebook to mamy null availability i odwrotnie
+-testowanie żeby nie zwracało rzeczy bez  sensu- kasia?
+-dodać wszędzie try catche
 
-
-ŚREDNIO WAŻNE:
--modyfikowanie użytkowników (np zmiana hasła)
-
-
-MAŁO WAŻNE:
--modyfikowanie książek
--modyfikowanie autorów
--modyfikowanie obrazków
 
 
 WAŻNE ALE NIE PILNE
--dodać obsługę https
 -dodać lepsze dane próbne- to ma zrobić kasia
-
-
-
-zrobione:
--tworzenie użytkownika- czy jest books?z

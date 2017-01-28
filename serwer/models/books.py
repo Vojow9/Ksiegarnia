@@ -1,6 +1,8 @@
 from models.model import Model
 from models.authors import Authors
 from models.bookcovers import BookCovers
+from .DBItemIdParser import DBItemIdParser
+from bson.json_util import dumps,default
 import json
 from bson import ObjectId
 
@@ -15,7 +17,10 @@ class Books(Model):
             'authors','tableOfContents','description'):
                 if o not in book:
                     assert False
-            if type(book['isEbook']) != type(True):
+            if book['isEbook'] == True and book['availability'] != None:
+                assert False
+            elif book['isEbook'] == False and not int(book['availability'])>=0:
+                print(int(book['availability']))
                 assert False
             if type(book['tableOfContents']) != list:
                 assert False
@@ -27,12 +32,18 @@ class Books(Model):
             return False
 
 
+
     def isAuthorInAnyBook(author):
         authorsList = []
         for book in list(Books.collection.find()):
             authorsList.extend(book['authors'])
         return ObjectId(author) in authorsList
 
+
+    def getAllOfAuthor(auth_id):
+        collection = list( Books.collection.find({'authors':ObjectId(auth_id)}))
+        collection = DBItemIdParser.prettyIdRepresentation(collection)
+        return dumps(collection,ensure_ascii=False,).encode("utf8")
 
     def deleteById(id):
         if not Books.isValueUsed('_id',ObjectId(id)):
@@ -52,6 +63,7 @@ class Books(Model):
             return 400
         new_book = json.loads(str(new_book,'utf8'))
         new_book['authors'] = Books.changeAuthorStrIdToObjectId(new_book['authors'])
+        new_book['availability'] = int(new_book['availability'])
         if Books.isValueUsed("ISBN",new_book["ISBN"]):
             return 409
         Books.collection.insert_one(new_book)
@@ -84,6 +96,17 @@ class Books(Model):
                 return True
         return False
 
+
+
+    def UpdateAvailability(bookid , availabilityData):
+        availabilityData = json.loads(str(availabilityData,'utf8'))
+        availability = int(availabilityData['availability'])
+        if availability <= 0:
+            assert False
+        if Books.isEbook(bookid):
+            assert False
+        Books.collection.update_one({'_id':ObjectId(bookid)}, {"$set":{'availability':availability}})
+        return 201
 
     def decreaseAvailability(bookslist):
         bookslist = [ObjectId(bookid) for bookid in bookslist]
