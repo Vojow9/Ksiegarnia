@@ -78,8 +78,8 @@ class Customers(Model):
 
 
 
-    def getAllBooks(id):
-        books = Customers.collection.find_one({'_id' :ObjectId(id)})['books']
+    def getAllBooks(username):
+        books = Customers.collection.find_one({'username' : username})['books']
         for i in range(len(books)):
             books[i]['bookid'] = str(books[i]['bookid'])
             books[i]['purchasedate'] = str(books[i]['purchasedate'])
@@ -91,8 +91,9 @@ class Customers(Model):
                 pass
         return dumps(books,ensure_ascii=False,).encode("utf8")
 
-    def buyBooks(id,books):
+    def buyBooks(username,books):
         books = ast.literal_eval(str(books,'utf-8')) #conerts to python list with strings
+        id = str(Customers.collection.find_one({'username':username})['_id'])
         if len(books) == 0:
             return 400
         if not models.books.Books.isBooksIdsValidId(books):

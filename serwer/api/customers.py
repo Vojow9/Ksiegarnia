@@ -19,13 +19,15 @@ def customer(username):
     return Customers.getByUsername(username)
 
 
+
+
+
+
 # @get('/customers/<id>')
 # @enable_cors
 # @auth_basic(Customers.isCredentialsValid)
 # def customer(id):
 #     return Customers.getById(id)
-
-
 
 
 # update pasword
@@ -54,11 +56,11 @@ def createCustomer():
         response.status = 400
 
 
-@get('/customers/availablebooks/<id>')
+@get('/customers/availablebooks/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
-def customerslist(id):
-    return Customers.getAllBooks(id)
+def customerslist(username):
+    return Customers.getAllBooks(username)
 
 
 #request must be list of 'id' of books you want to buy/borrow
@@ -68,12 +70,12 @@ def customerslist(id):
 #403 you cannot rent more than one ebook
 #403 if your  ebook is not expired, you cant rent this ebook
 #201 success
-@post('/customers/availablebooks/<id>')
+@post('/customers/availablebooks/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
-def customerslist(id):
+def customerslist(username):
     try:
         books = request.body.readlines()[0]
-        response.status =  Customers.buyBooks(id,books)
+        response.status =  Customers.buyBooks(username,books)
     except:
         response.status = 400
