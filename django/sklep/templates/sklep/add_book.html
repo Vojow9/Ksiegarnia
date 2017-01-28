@@ -8,7 +8,7 @@
       <br style="clear:both">
                   <h3 style="margin-bottom: 25px; text-align: center;">Dodaj ksiązke</h3>
           <div class="form-group">
-          <input type="text" class="form-control" id="title" name="title" placeholder="Tytuł" required>
+          <input type="text" class="form-control" id="title" name="title"  placeholder="Tytuł" required>
         </div>
         <div class="form-group">
           <input type="text" class="form-control" id="author" name="author" placeholder="Autor" required>
@@ -21,9 +21,6 @@
         </div>
         <div class="form-group">
           <input type="text" class="form-control" id="price" name="price" placeholder="Cena" >
-        </div>
-		 <div class="form-group">
-          <input type="text" class="form-control" id="lendPrice" name="lendPrice" placeholder="Cena wypozyczenia">
         </div>
 		<div class="form-group">
           <input type="text" class="form-control" id="isEbook" name="isEbook" placeholder="Czy jest ebookiem" required>
@@ -61,16 +58,27 @@
 document.getElementById("submit").onclick = function() {submit()};
 
 function submit(){
+
+    var price = document.getElementById("price").value;
+    var author = document.getElementById("author").value;
+    var title = document.getElementById("title").value;
+    var quanity = document.getElementById("quanity").value;
+    var description = document.getElementById("description").value;
+    var isbn = document.getElementById("ISBN").value;
+    var isEbook = document.getElementById("isEbook").value;
+    var tableOfContents = document.getElementById("tableOfContents").value;
+
     var data = new FormData();
-    	data.append('price', 'price');
-	data.append('author', 'author');
-    data.append('title', 'title');
-    data.append('quanity', 'quanity');
-	data.append('lendPrice','lendPrice');
-	data.append('description','description');
-    data.append('ISBN', 'ISBN');
-	data.append('isEbook','isEbook');
-	data.append('tableOfContents','tableOfContents');
+
+    data.append('ISBN', isbn);
+    data.append('availability', quanity);
+    data.append('description',description);
+    data.append('tableOfContents',tableOfContents);
+    data.append('isEbook',isEbook);
+    data.append('authors', author);
+    data.append('price', price);
+    data.append('title', title);
+
 
 
 	console.log(data);
@@ -99,14 +107,21 @@ function submit(){
       }
       return xhr;
     }
-    var xhr = createCORSRequest('POST','http://localhost:8080/books/')
+    var xhr = createCORSRequest('POST','http://localhost:8080/books')
     xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
     xhr.onload = function () {
     console.log(this.responseText);
     };
-    xhr.send(data);
+    xhr.send(form_to_json(data));
     };
 
+    function form_to_json (selector) {
+      var ary = $(selector).serializeArray();
+      var obj = {};
+      for (var a = 0; a < ary.length; a++) obj[ary[a].name] = ary[a].value;
+      console.log(obj);
+      return obj;
+    }
 
 
 
