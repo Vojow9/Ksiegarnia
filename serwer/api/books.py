@@ -33,11 +33,11 @@ def book(id):
 @enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def createBook():
-    try:
-        data = request.body.readlines()[0]
-        response.status = Books.createBook(data)
-    except:
-        response.status = 400
+    # try:
+    data = request.body.readlines()[0]
+    response.status = Books.createBook(data)
+    # except:
+    #     response.status = 400
 
 
 # update availabity
@@ -60,7 +60,7 @@ def uptdAvailability(id):
 @enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def deletebyid(id):
-    try:
-        response.status = Books.deleteById(id)
-    except:
-        response.status = 400
+    # try:
+    response.status = Books.deleteById(id)
+    # except:
+    #     response.status = 400

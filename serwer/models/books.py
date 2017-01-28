@@ -1,35 +1,38 @@
 from models.model import Model
-from models.authors import Authors
-from models.bookcovers import BookCovers
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps,default
 import json
 from bson import ObjectId
 
+# from models.authors import Authors
+# from models.bookcovers import BookCovers
+
+import models.authors
+import models.bookcovers
 
 class Books(Model):
     collection = Model.db.books
 
     def isValidBookForm(book):
-        try:
-            book = json.loads(str(book,'utf8'))
-            for o in ('ISBN','title','isEbook','price','availability',
-            'authors','tableOfContents','description'):
-                if o not in book:
-                    assert False
-            if book['isEbook'] == True and book['availability'] != None:
+        # try:
+        book = json.loads(str(book,'utf8'))
+        for o in ('ISBN','title','isEbook','price','availability',
+        'authors','tableOfContents','description'):
+            if o not in book:
                 assert False
-            elif book['isEbook'] == False and not int(book['availability'])>=0:
-                print(int(book['availability']))
+        if book['isEbook'] == True and book['availability'] != None:
+            assert False
+        elif book['isEbook'] == False and not int(book['availability'])>=0:
+            print(int(book['availability']))
+            assert False
+        if type(book['tableOfContents']) != list:
+            assert False
+        for author in book['authors']:
+            if type(models.authors.Authors.getById(author,strFormat = True)) == type(None):
                 assert False
-            if type(book['tableOfContents']) != list:
-                assert False
-            for author in book['authors']:
-                if type(Authors.getById(author,strFormat = True)) == type(None):
-                    assert False
-            return True
-        except:
-            return False
+        return True
+        # except:
+        #     return False
 
 
 
@@ -48,7 +51,7 @@ class Books(Model):
     def deleteById(id):
         if not Books.isValueUsed('_id',ObjectId(id)):
             return 404
-        BookCovers.deleteById(id)
+        models.bookcovers.BookCovers.deleteById(id)
         Books.collection.delete_one({'_id' :ObjectId(id)})
         return 200
 
