@@ -19,7 +19,7 @@ class BookCovers(Model):
 
 
     def createByIdOfBook(bookid, bdata):
-        if type(model.books.Books.collection.find_one({'_id' :ObjectId(bookid)})) == type(None):
+        if type(models.books.Books.collection.find_one({'_id' :ObjectId(bookid)})) == type(None):
             return 400
         if type(BookCovers.collection.find_one({'bookid' :ObjectId(bookid)})) != type(None):
             return 409

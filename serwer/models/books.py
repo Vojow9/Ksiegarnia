@@ -14,25 +14,25 @@ class Books(Model):
     collection = Model.db.books
 
     def isValidBookForm(book):
-        # try:
-        book = json.loads(str(book,'utf8'))
-        for o in ('ISBN','title','isEbook','price','availability',
-        'authors','tableOfContents','description'):
-            if o not in book:
+        try:
+            book = json.loads(str(book,'utf8'))
+            for o in ('ISBN','title','isEbook','price','availability',
+            'authors','tableOfContents','description'):
+                if o not in book:
+                    assert False
+            if book['isEbook'] == True and book['availability'] != None:
                 assert False
-        if book['isEbook'] == True and book['availability'] != None:
-            assert False
-        elif book['isEbook'] == False and not int(book['availability'])>=0:
-            print(int(book['availability']))
-            assert False
-        if type(book['tableOfContents']) != list:
-            assert False
-        for author in book['authors']:
-            if type(models.authors.Authors.getById(author,strFormat = True)) == type(None):
+            elif book['isEbook'] == False and not int(book['availability'])>=0:
+                print(int(book['availability']))
                 assert False
-        return True
-        # except:
-        #     return False
+            if type(book['tableOfContents']) != list:
+                assert False
+            for author in book['authors']:
+                if type(models.authors.Authors.getById(author,strFormat = True)) == type(None):
+                    assert False
+            return True
+        except:
+            return False
 
 
 
