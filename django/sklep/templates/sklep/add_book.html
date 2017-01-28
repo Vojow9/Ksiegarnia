@@ -31,15 +31,15 @@
         <div class="form-group">
                   <textarea class="form-control" type="textarea" id="description" name="description" placeholder="Opis" maxlength="140" rows="7"></textarea>
         </div>
-		
+
 		 <div class="form-group">
                   <textarea class="form-control" type="textarea" id="tableOfContents" name="tableOfContents" placeholder="Lista rozdziałów" maxlength="140" rows="7"></textarea>
         </div>
-		
+
 
       <div class="input-group image-preview">
                <span class="input-group-btn">
-                   
+
                    <div class="btn btn-default image-preview-input">
                        <span class="glyphicon glyphicon-folder-open"></span>
                        <span class="image-preview-input-title">Przeglądaj</span>
@@ -47,54 +47,60 @@
                    </div>
                </span>
            </div>
-		
 
 
-      <button type="button" id="submit" onkeypress="submit();" name="submit" class="btn btn-primary pull-right">Dodaj</button>
+
+      <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Dodaj</button>
       </form>
   </div>
 </div>
 </div>
 
 <script>
-    function sumbit(){
+
+document.getElementById("submit").onclick = function() {submit()};
+
+function submit(){
     var data = new FormData();
-
-
-    File.prototype.convertToBase64 = function(callback){
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                 callback(e.target.result)
-            };
-            reader.onerror = function(e) {
-                 callback(null);
-            };
-            reader.readAsDataURL(this);
-    };
-
-    $("#cover").on('change',function(){
-      var selectedFile = this.files[0];
-      selectedFile.convertToBase64(function(base64){
-           alert(base64);
-      })
-    });
-
-	data.append('price', 'price');
+    	data.append('price', 'price');
 	data.append('author', 'author');
-    data.append('title', 'title');    
+    data.append('title', 'title');
     data.append('quanity', 'quanity');
 	data.append('lendPrice','lendPrice');
 	data.append('description','description');
-	data.append('cover','cover');
     data.append('ISBN', 'ISBN');
 	data.append('isEbook','isEbook');
 	data.append('tableOfContents','tableOfContents');
-    
-	
-	console.log(data);
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8080/books/', true);
+
+	console.log(data);
+    var username = 'admin';
+    var password = 'qwerty';
+    function createCORSRequest(method, url) {
+      var xhr = new XMLHttpRequest();
+      if ("withCredentials" in xhr) {
+
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        xhr.open(method, url, true);
+
+      } else if (typeof XDomainRequest != "undefined") {
+
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+
+      } else {
+
+        // Otherwise, CORS is not supported by the browser.
+        xhr = null;
+
+      }
+      return xhr;
+    }
+    var xhr = createCORSRequest('POST','http://localhost:8080/books/')
+    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
     xhr.onload = function () {
     console.log(this.responseText);
     };
