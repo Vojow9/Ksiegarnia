@@ -70,6 +70,13 @@ class Customers(Model):
         return dumps(collection,ensure_ascii=False,).encode("utf8")
 
 
+    def getByUsername(username):
+        collection = Customers.collection.find_one({'username' :username})
+        collection = DBItemIdParser.prettyIdRepresentation(collection)
+        del collection['password']
+        return dumps(collection,ensure_ascii=False,).encode("utf8")
+
+
 
     def getAllBooks(id):
         books = Customers.collection.find_one({'_id' :ObjectId(id)})['books']

@@ -12,11 +12,20 @@ def customerslist():
     return Customers.getAll()
 
 
-@get('/customers/<id>')
+@get('/customers/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
-def customer(id):
-    return Customers.getById(id)
+def customer(username):
+    return Customers.getByUsername(username)
+
+
+# @get('/customers/<id>')
+# @enable_cors
+# @auth_basic(Customers.isCredentialsValid)
+# def customer(id):
+#     return Customers.getById(id)
+
+
 
 
 # update pasword
