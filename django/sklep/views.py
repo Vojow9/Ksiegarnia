@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
- 
+
 
 
 def book_list(request):
@@ -45,6 +45,9 @@ def shop_detail(request):
 
 def add_book(request):
     return render(request, 'sklep/add_book.html')
+
+def add_author(request):
+    return render(request, 'sklep/add_author.html')
 
 def cart(request):
     return render(request,'sklep/cart.html')
