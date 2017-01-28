@@ -3,8 +3,10 @@ from models.authors import Authors
 from models.books import Books
 from models.admins import Admins
 
+from api.cors import enable_cors
 
 @get('/authors')
+@enable_cors
 def authorslist():
     return Authors.getAll()
 
@@ -12,6 +14,7 @@ def authorslist():
 
 
 @get('/authors/<id>')
+@enable_cors
 def author(id):
     return Authors.getById(id)
 
@@ -22,6 +25,7 @@ def author(id):
 #400 invaild form
 #201 succes, author created
 @post('/authors')
+@enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def createAuthor():
     try:
@@ -36,6 +40,7 @@ def createAuthor():
 #400 wrong id form
 #404 no such author id in db
 @delete('/authors/<id>')
+@enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def deleteauthor(id):
     try:
