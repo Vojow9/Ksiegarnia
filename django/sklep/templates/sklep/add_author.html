@@ -32,9 +32,9 @@ function submit(){
   var data = JSON.parse(JSON.stringify(array));
 
     console.log(data);
-    var username = 'admin';
-    var password = 'qwerty';
-    function createCORSRequest(method, url) {
+    //var username = 'admin';
+    // var password = 'qwerty';
+  /*  function createCORSRequest(method, url) {
       var xhr = new XMLHttpRequest();
       if ("withCredentials" in xhr) {
 
@@ -58,7 +58,11 @@ function submit(){
       return xhr;
     }
     var xhr = createCORSRequest('POST','http://localhost:8080/authors')
-    xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+    //xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));*/
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST','http://localhost:8080/books',true);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwert'));
     xhr.onload = function () {
     console.log(this.responseText);
     };
