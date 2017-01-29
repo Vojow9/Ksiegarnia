@@ -1,4 +1,4 @@
-from bottle import get, post, request, route,put, response, auth_basic
+from bottle import get, post, request, route,put, response, auth_basic, route
 from models.customers import Customers
 import json
 
@@ -6,13 +6,15 @@ from api.cors import enable_cors
 
 
 #teraz zostaje tylko do testowania, normalnie usune ze wzgledow bezpieczenstwa
-@get('/customers')
+@route('/customers', method=['OPTIONS', 'GET'])
+# @get('/customers')
 @enable_cors
 def customerslist():
     return Customers.getAll()
 
 
-@get('/customers/<username>')
+@route('/customers/<username>', method=['OPTIONS', 'GET'])
+# @get('/customers/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def customer(username):
@@ -32,7 +34,8 @@ def customer(username):
 
 # update pasword
 # send { 'password':'abc}
-@put('/customers/<id>')
+@route('/customers/<id>', method=['OPTIONS', 'PUT'])
+# @put('/customers/<id>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def changepasswd(id):
@@ -46,7 +49,8 @@ def changepasswd(id):
 #400 invalid form
 #409 username already in db
 #201 success
-@post('/customers')
+@route('/customers', method=['OPTIONS', 'POST'])
+# @post('/customers')
 @enable_cors
 def createCustomer():
     try:
@@ -56,7 +60,8 @@ def createCustomer():
         response.status = 400
 
 
-@get('/customers/availablebooks/<username>')
+@route('/customers/availablebooks/<username>', method=['OPTIONS', 'GET'])
+# @get('/customers/availablebooks/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def customerslist(username):
@@ -70,7 +75,8 @@ def customerslist(username):
 #403 you cannot rent more than one ebook
 #403 if your  ebook is not expired, you cant rent this ebook
 #201 success
-@post('/customers/availablebooks/<username>')
+@route('/customers/availablebooks/<username>', method=['OPTIONS', 'POST'])
+# @post('/customers/availablebooks/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def customerslist(username):
