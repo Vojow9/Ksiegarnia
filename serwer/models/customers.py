@@ -1,12 +1,14 @@
 from models.model import Model
 from passlib.hash import pbkdf2_sha256
 import json
+import re
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps
 from bson import ObjectId
 import ast
 from datetime import datetime, timedelta
 from .DBItemIdParser import DBItemIdParser
+
 
 import models.books
 
@@ -23,6 +25,9 @@ class Customers(Model):
                 if not Model.properLenOfObject(o):
                     print(o)
                     assert False
+            m = re.match('^[1-9a-zA-Z]+$',user["username"])
+            if not m:
+                assert False
             if not Model.properLenOfObject(user["address"], max_len = 60):
                 assert False
             if not '@' in user["email"]:
