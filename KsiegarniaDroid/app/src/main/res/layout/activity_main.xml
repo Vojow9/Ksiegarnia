@@ -33,4 +33,18 @@
         android:layout_gravity="center"
         android:text="Książki" />
 
+    <Button
+        android:id="@+id/btnBought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Kupione" />
+
+    <Button
+        android:id="@+id/btnBasket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Koszyk" />
+
 </LinearLayout>

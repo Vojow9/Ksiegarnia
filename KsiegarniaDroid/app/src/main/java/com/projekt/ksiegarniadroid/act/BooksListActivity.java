@@ -2,28 +2,23 @@ package com.projekt.ksiegarniadroid.act;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.projekt.ksiegarniadroid.R;
-import com.projekt.ksiegarniadroid.adapters.AuthorsAdapterView;
 import com.projekt.ksiegarniadroid.adapters.BooksAdapterView;
-import com.projekt.ksiegarniadroid.connectivity.RESTClient;
 import com.projekt.ksiegarniadroid.connectivity.RESTClientAdapter;
 import com.projekt.ksiegarniadroid.exceptions.RESTClientException;
-import com.projekt.ksiegarniadroid.objects.Author;
 import com.projekt.ksiegarniadroid.objects.Book;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class BooksListActivity extends Activity implements Runnable {
+public class BooksListActivity extends Activity {
 
     private ArrayList<Book> books = new ArrayList<>();
     private BooksAdapterView adapter;
     private ListView lvBooks;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +45,27 @@ public class BooksListActivity extends Activity implements Runnable {
     }
 
     private void getBooks() {
-        Thread _thread = new Thread(this);
-        _thread.start();
+        new BooksAsync().execute();
     }
 
-    @Override
-    public void run() {
-        try {
-            books = RESTClientAdapter.getAllBooks();
-        } catch (RESTClientException e) {
-            e.printStackTrace();
-        } finally {
+
+    class BooksAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                books = RESTClientAdapter.getAllBooks();
+                for (int i = 0; i < books.size(); i++) {
+                    books.get(i).setBookCover(RESTClientAdapter.getBookCover(books.get(i).getId()));
+                }
+            } catch (RESTClientException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
             adapter.notifyDataSetChanged();
             setListViewAdapter();
         }

@@ -1,22 +1,18 @@
 package com.projekt.ksiegarniadroid.objects;
 
-import android.content.Intent;
-
 /**
  * Created by Sebo on 2016-11-27.
  */
 
 public class Book
 {
-    private _id[] authors;
+    private String id;
 
-    private String cover;
+    private String[] authors;
 
     private String title;
 
-    private Double price;
-
-    private _id _id;
+    private String price;
 
     private String ISBN;
 
@@ -24,30 +20,30 @@ public class Book
 
     private String[] tableOfContents;
 
-    private Integer lendPrice;
-
-    private Boolean isEbook;
+    private String isEbook;
 
     private String availability;
 
-    public _id[] getAuthors ()
+    private byte[] bookCover;
+
+    public String getId ()
+    {
+        return id;
+    }
+
+    public void setId (String id)
+    {
+        this.id = id;
+    }
+
+    public String[] getAuthors ()
     {
         return authors;
     }
 
-    public void setAuthors (_id[] authors)
+    public void setAuthors (String[] authors)
     {
         this.authors = authors;
-    }
-
-    public String getCover ()
-    {
-        return cover;
-    }
-
-    public void setCover (String cover)
-    {
-        this.cover = cover;
     }
 
     public String getTitle ()
@@ -60,24 +56,14 @@ public class Book
         this.title = title;
     }
 
-    public Double getPrice ()
+    public String getPrice ()
     {
         return price;
     }
 
-    public void setPrice (Double price)
+    public void setPrice (String price)
     {
         this.price = price;
-    }
-
-    public _id get_id ()
-    {
-        return _id;
-    }
-
-    public void set_id (_id _id)
-    {
-        this._id = _id;
     }
 
     public String getISBN ()
@@ -110,16 +96,15 @@ public class Book
         this.tableOfContents = tableOfContents;
     }
 
-    public Integer getLendPrice ()
-{
-    return lendPrice;
-}
-
-    public void setLendPrice (Integer lendPrice)
+    public String getIsEbook ()
     {
-        this.lendPrice = lendPrice;
+        return isEbook;
     }
 
+    public void setIsEbook (String isEbook)
+    {
+        this.isEbook = isEbook;
+    }
 
     public String getAvailability ()
     {
@@ -134,14 +119,14 @@ public class Book
     @Override
     public String toString()
     {
-        return "[authors = "+authors+", cover = "+cover+", title = "+title+", price = "+price+", _id = "+_id+", ISBN = "+ISBN+", description = "+description+", tableOfContents = "+tableOfContents+", lendPrice = "+lendPrice+", isEbook = "+isEbook+", availability = "+availability+"]";
+        return "ClassPojo [id = "+id+", authors = "+authors+", title = "+title+", price = "+price+", ISBN = "+ISBN+", description = "+description+", tableOfContents = "+tableOfContents+", isEbook = "+isEbook+", availability = "+availability+"]";
     }
 
-    public void setIsEbook(Boolean ebook) {
-        isEbook = ebook;
+    public byte[] getBookCover() {
+        return bookCover;
     }
 
-    public Boolean getIsEbook(){
-        return isEbook;
+    public void setBookCover(byte[] bookCover) {
+        this.bookCover = bookCover;
     }
 }

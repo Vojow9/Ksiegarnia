@@ -1,10 +1,12 @@
 package com.projekt.ksiegarniadroid.adapters;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.projekt.ksiegarniadroid.R;
@@ -55,13 +57,16 @@ public class BooksAdapterView extends BaseAdapter {
         tv = (TextView) convertView.findViewById(R.id.tvDescription);
         tv.setText(entry.getDescription());
         tv = (TextView) convertView.findViewById(R.id.tvPrice);
-        tv.setText(Double.toString(entry.getPrice()));
+        tv.setText(entry.getPrice());
         tv = (TextView) convertView.findViewById(R.id.tvAvailability);
-        if(entry.getAvailability()!=null)
-        tv.setText(entry.getAvailability());
+        if (entry.getAvailability() != null)
+            tv.setText(entry.getAvailability());
         else tv.setText("Brak");
         tv = (TextView) convertView.findViewById(R.id.tvIsEbook);
-        tv.setText(entry.getIsEbook().toString());
+        tv.setText(entry.getIsEbook());
+        ImageView iv = (ImageView) convertView.findViewById(R.id.ivBookPicture);
+        if (entry.getBookCover() != null)
+            iv.setImageBitmap(BitmapFactory.decodeByteArray(entry.getBookCover(), 0, entry.getBookCover().length));
         return convertView;
     }
 }

@@ -11,12 +11,16 @@ import com.projekt.ksiegarniadroid.exceptions.RESTClientException;
 
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+
+import org.apache.commons.io.IOUtils;
 
 public class RESTClient {
     public static <T> T doPost(String baseAddress, String methodName,
@@ -41,6 +45,7 @@ public class RESTClient {
             httpURLConnection.setDoInput(true);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
+
             httpURLConnection.connect();
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
             wr.write(buildStringEntity(inputObject).getBytes());
@@ -91,6 +96,32 @@ public class RESTClient {
             in.close();
             Log.d("HTTP_GET","Respose = " + response.toString());
             return new Gson().fromJson(response.toString(), outputClass);
+        } catch (Exception e) {
+            throw new RESTClientException(e);
+        }
+    }
+
+    public static  byte[] doGetPicture(String baseAddress, String methodName)
+            throws RESTClientException {
+        if (baseAddress == null || baseAddress == "")
+            throw new IllegalArgumentException(
+                    "Argument 'baseAddress' is null or empty.");
+        if (methodName == null || methodName == "")
+            throw new IllegalArgumentException(
+                    "Argument 'methodName' is null or empty.");
+        try {
+            URL url = new URL(buildURL(baseAddress, methodName));
+            URLConnection conn = url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+            conn.connect();
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            IOUtils.copy(conn.getInputStream(), baos);
+
+            return baos.toByteArray();
+
+
         } catch (Exception e) {
             throw new RESTClientException(e);
         }

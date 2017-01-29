@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">KsiegarniaDroid</string>
-    <string name="facebook_app_id">1230595910347783</string>
+    <string name="tv_login">Login</string>
+    <string name="tv_password">Hasło</string>
+    <string name="btn_login">Zaloguj</string>
+    <string name="tv_name">Imię</string>
+    <string name="tv_description">Opis</string>
+    <string name="tv_repeatPassword">Powtórz hasło</string>
+    <string name="btn_register">Zarejestruj</string>
 </resources>
