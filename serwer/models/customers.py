@@ -25,7 +25,7 @@ class Customers(Model):
                 if not Model.properLenOfObject(o):
                     print(o)
                     assert False
-            m = re.match('^[1-9a-zA-Z]+$',user["username"])
+            m = re.match('^[0-9a-zA-Z]+$',user["username"])
             if not m:
                 assert False
             if not Model.properLenOfObject(user["address"], max_len = 60):
