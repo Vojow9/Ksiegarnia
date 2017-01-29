@@ -26,7 +26,7 @@ def author(id):
 #201 succes, author created
 @post('/authors')
 @enable_cors
-@auth_basic(Admins.isCredentialsValid)
+
 def createAuthor():
     try:
         data = request.body.readlines()[0]

@@ -31,7 +31,7 @@ def book(id):
 #201 success
 @post('/books')
 @enable_cors
-@auth_basic(Admins.isCredentialsValid)
+
 def createBook():
     # try:
     data = request.body.readlines()[0]
