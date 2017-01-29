@@ -23,6 +23,9 @@ public class RESTClientAdapter {
         return new ArrayList<>(Arrays.asList(RESTClient.doGet(URL, "books", Book[].class)));
     }
 
+    public static ArrayList<Book> getAuthorBooks(String authorId) throws RESTClientException {
+        return new ArrayList<>(Arrays.asList(RESTClient.doGet(URL, "books/author/" + authorId , Book[].class)));
+    }
     public static byte[] getBookCover(String bookId) throws RESTClientException {
         return RESTClient.doGetPicture(URL, "bookcovers/" + bookId);
     }

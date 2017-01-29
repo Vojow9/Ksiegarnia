@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.projekt.ksiegarniadroid.R;
 
-public class BasketActivity extends Activity {
+public class SummaryActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basket);
+        setContentView(R.layout.activity_summary);
     }
 }

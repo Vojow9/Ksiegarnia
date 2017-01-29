@@ -1,11 +1,12 @@
 package com.projekt.ksiegarniadroid.act;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.projekt.ksiegarniadroid.R;
 
-public class BoughtActivity extends AppCompatActivity {
+public class BoughtActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

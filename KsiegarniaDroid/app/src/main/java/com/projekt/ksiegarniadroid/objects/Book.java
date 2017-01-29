@@ -1,11 +1,12 @@
 package com.projekt.ksiegarniadroid.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by Sebo on 2016-11-27.
  */
 
-public class Book
-{
+public class Book implements Serializable {
     private String id;
 
     private String[] authors;
@@ -20,9 +21,9 @@ public class Book
 
     private String[] tableOfContents;
 
-    private String isEbook;
+    private boolean isEbook;
 
-    private String availability;
+    private int availability;
 
     private byte[] bookCover;
 
@@ -96,30 +97,22 @@ public class Book
         this.tableOfContents = tableOfContents;
     }
 
-    public String getIsEbook ()
-    {
+    public void setEbook(boolean ebook) {
+        isEbook = ebook;
+    }
+
+    public boolean getEbook(){
         return isEbook;
     }
 
-    public void setIsEbook (String isEbook)
-    {
-        this.isEbook = isEbook;
-    }
-
-    public String getAvailability ()
+    public int getAvailability ()
     {
         return availability;
     }
 
-    public void setAvailability (String availability)
+    public void setAvailability (int availability)
     {
         this.availability = availability;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [id = "+id+", authors = "+authors+", title = "+title+", price = "+price+", ISBN = "+ISBN+", description = "+description+", tableOfContents = "+tableOfContents+", isEbook = "+isEbook+", availability = "+availability+"]";
     }
 
     public byte[] getBookCover() {

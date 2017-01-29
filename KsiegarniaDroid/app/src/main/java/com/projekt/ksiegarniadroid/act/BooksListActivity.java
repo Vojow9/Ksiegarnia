@@ -2,8 +2,11 @@ package com.projekt.ksiegarniadroid.act;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.projekt.ksiegarniadroid.R;
@@ -25,9 +28,14 @@ public class BooksListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books_list);
         setControls();
+        setEvents();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         getBooks();
         setListViewAdapter();
-        setEvents();
     }
 
     private void setControls() {
@@ -35,7 +43,14 @@ public class BooksListActivity extends Activity {
     }
 
     private void setEvents() {
-
+        lvBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), BookDetailsInfo.class);
+                intent.putExtra("Book", books.get(i));
+                startActivity(intent);
+            }
+        });
     }
 
     private void setListViewAdapter() {
@@ -54,7 +69,11 @@ public class BooksListActivity extends Activity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                books = RESTClientAdapter.getAllBooks();
+                String authorId = getIntent().getStringExtra("AuthorId");
+                if (authorId != null && !authorId.equals("")) {
+                    books = RESTClientAdapter.getAuthorBooks(authorId);
+                } else
+                    books = RESTClientAdapter.getAllBooks();
                 for (int i = 0; i < books.size(); i++) {
                     books.get(i).setBookCover(RESTClientAdapter.getBookCover(books.get(i).getId()));
                 }
