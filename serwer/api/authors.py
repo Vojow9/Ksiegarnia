@@ -1,19 +1,21 @@
-from bottle import get, post, put, delete,  auth_basic, response, request
+from bottle import get, post, put, delete,  auth_basic, response, request, route
 from models.authors import Authors
 from models.books import Books
 from models.admins import Admins
 
 from api.cors import enable_cors
 
-@get('/authors')
+
+@route('/authors', method=['OPTIONS', 'GET'])
+# @get('/authors')
 @enable_cors
 def authorslist():
     return Authors.getAll()
 
 
 
-
-@get('/authors/<id>')
+@route('/authors/<id>', method=['OPTIONS', 'GET'])
+# @get('/authors/<id>')
 @enable_cors
 def author(id):
     return Authors.getById(id)
@@ -24,7 +26,8 @@ def author(id):
 #409 if name of author is already used
 #400 invaild form
 #201 succes, author created
-@post('/authors')
+@route('/authors', method=['OPTIONS', 'POST'])
+# @post('/authors')
 @enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def createAuthor():
@@ -39,7 +42,8 @@ def createAuthor():
 #200 success
 #400 wrong id form
 #404 no such author id in db
-@delete('/authors/<id>')
+@route('/authors/<id>', method=['OPTIONS', 'DELETE'])
+# @delete('/authors/<id>')
 @enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def deleteauthor(id):

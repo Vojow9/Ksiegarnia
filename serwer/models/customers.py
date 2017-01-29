@@ -1,12 +1,14 @@
 from models.model import Model
 from passlib.hash import pbkdf2_sha256
 import json
+import re
 from .DBItemIdParser import DBItemIdParser
 from bson.json_util import dumps
 from bson import ObjectId
 import ast
 from datetime import datetime, timedelta
 from .DBItemIdParser import DBItemIdParser
+
 
 import models.books
 
@@ -23,6 +25,9 @@ class Customers(Model):
                 if not Model.properLenOfObject(o):
                     print(o)
                     assert False
+            m = re.match('^[0-9a-zA-Z]+$',user["username"])
+            if not m:
+                assert False
             if not Model.properLenOfObject(user["address"], max_len = 60):
                 assert False
             if not '@' in user["email"]:
@@ -70,9 +75,16 @@ class Customers(Model):
         return dumps(collection,ensure_ascii=False,).encode("utf8")
 
 
+    def getByUsername(username):
+        collection = Customers.collection.find_one({'username' :username})
+        collection = DBItemIdParser.prettyIdRepresentation(collection)
+        del collection['password']
+        return dumps(collection,ensure_ascii=False,).encode("utf8")
 
-    def getAllBooks(id):
-        books = Customers.collection.find_one({'_id' :ObjectId(id)})['books']
+
+
+    def getAllBooks(username):
+        books = Customers.collection.find_one({'username' : username})['books']
         for i in range(len(books)):
             books[i]['bookid'] = str(books[i]['bookid'])
             books[i]['purchasedate'] = str(books[i]['purchasedate'])
@@ -84,8 +96,9 @@ class Customers(Model):
                 pass
         return dumps(books,ensure_ascii=False,).encode("utf8")
 
-    def buyBooks(id,books):
+    def buyBooks(username,books):
         books = ast.literal_eval(str(books,'utf-8')) #conerts to python list with strings
+        id = str(Customers.collection.find_one({'username':username})['_id'])
         if len(books) == 0:
             return 400
         if not models.books.Books.isBooksIdsValidId(books):

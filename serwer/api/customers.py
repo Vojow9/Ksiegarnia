@@ -1,4 +1,4 @@
-from bottle import get, post, request, route,put, response, auth_basic
+from bottle import get, post, request, route,put, response, auth_basic, route
 from models.customers import Customers
 import json
 
@@ -6,22 +6,36 @@ from api.cors import enable_cors
 
 
 #teraz zostaje tylko do testowania, normalnie usune ze wzgledow bezpieczenstwa
-@get('/customers')
+@route('/customers', method=['OPTIONS', 'GET'])
+# @get('/customers')
 @enable_cors
 def customerslist():
     return Customers.getAll()
 
 
-@get('/customers/<id>')
+@route('/customers/<username>', method=['OPTIONS', 'GET'])
+# @get('/customers/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
-def customer(id):
-    return Customers.getById(id)
+def customer(username):
+    return Customers.getByUsername(username)
+
+
+
+
+
+
+# @get('/customers/<id>')
+# @enable_cors
+# @auth_basic(Customers.isCredentialsValid)
+# def customer(id):
+#     return Customers.getById(id)
 
 
 # update pasword
 # send { 'password':'abc}
-@put('/customers/<id>')
+@route('/customers/<id>', method=['OPTIONS', 'PUT'])
+# @put('/customers/<id>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
 def changepasswd(id):
@@ -35,7 +49,8 @@ def changepasswd(id):
 #400 invalid form
 #409 username already in db
 #201 success
-@post('/customers')
+@route('/customers', method=['OPTIONS', 'POST'])
+# @post('/customers')
 @enable_cors
 def createCustomer():
     try:
@@ -45,11 +60,12 @@ def createCustomer():
         response.status = 400
 
 
-@get('/customers/availablebooks/<id>')
+@route('/customers/availablebooks/<username>', method=['OPTIONS', 'GET'])
+# @get('/customers/availablebooks/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
-def customerslist(id):
-    return Customers.getAllBooks(id)
+def customerslist(username):
+    return Customers.getAllBooks(username)
 
 
 #request must be list of 'id' of books you want to buy/borrow
@@ -59,12 +75,13 @@ def customerslist(id):
 #403 you cannot rent more than one ebook
 #403 if your  ebook is not expired, you cant rent this ebook
 #201 success
-@post('/customers/availablebooks/<id>')
+@route('/customers/availablebooks/<username>', method=['OPTIONS', 'POST'])
+# @post('/customers/availablebooks/<username>')
 @enable_cors
 @auth_basic(Customers.isCredentialsValid)
-def customerslist(id):
+def customerslist(username):
     try:
         books = request.body.readlines()[0]
-        response.status =  Customers.buyBooks(id,books)
+        response.status =  Customers.buyBooks(username,books)
     except:
         response.status = 400

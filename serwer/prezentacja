@@ -1,0 +1,102 @@
+
+
+
+
+
+
+
+
+
+
+KOD DO POSTMANA:
+--------------------------------------------------------------------------------
+GET http://localhost:8080/books
+
+
+--------------------------------------------------------------------------------
+
+GET http://localhost:8080/books/5836048f57aac220c4c87383
+
+
+--------------------------------------------------------------------------------
+
+
+GET http://localhost:8080/bookcovers/5836048f57aac220c4c87383
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+POST http://localhost:8080/books
+autentykacja admina
+
+id autora musi już byc w bazie danych
+
+{"title": "Harry Potter i Komnata tajeminic", "price": "4.15", "ISBN": "816399437-8", "isEbook": false, "availability": 15, "tableOfContents": ["pierwszy rozdzial", "drugi rozdzial", "trzeci rozdzial", "czwarty rozdzial","jescze jeden rozdzial"], "authors": ["5836047157aac220c4c87380"], "description": "Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl."}
+
+
+
+--------------------------------------------------------------------------------
+
+PUT http://localhost:8080/books/5836048f57aac220c4c87383
+autentykacja adminem
+
+
+{"availability": 10}
+--------------------------------------------------------------------------------
+
+
+
+BOOKCOVERS LECI TAK SAMO
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+POST http://localhost:8080/customers
+
+{"username": "kuba", "first_name": "Kuba", "gender": "Female", "last_name": "Washington", "password": "qwerty", "address": "359 Hanover Avenue", "email": "aaaaaa@shutterfly.com"}
+
+
+--------------------------------------------------------------------------------
+
+
+GET http://localhost:8080/customers/kuba
+autentykacja kuba
+
+PUTem możliwośc zmiany hasła
+
+--------------------------------------------------------------------------------
+
+
+POST http://localhost:8080/customers/availablebooks/kuba
+autentykacja kuba
+["5836048f57aac220c4c87383", "5836049c57aac220c4c87384"]
+
+- znika ilość książek w bazie książek
+- ebook - wypożyczenie i odliczanie czasu, 1 max
+- nieebook - ile razy chcemy
+
+
+--------------------------------------------------------------------------------
+
+GET http://localhost:8080/customers/availablebooks/kuba
+autentykacja kuba
+
+
+--------------------------------------------------------------------------------
+
+DDELETE http://localhost:8080/books/588e3b4b57aac2780db0832b
+
+autentykacja adminem
+
+usuwa również okładkę w bazie danych
+
+--------------------------------------------------------------------------------
+
+
+dla authros tak samo wszystko + zapytanie kto napisał jakie książki

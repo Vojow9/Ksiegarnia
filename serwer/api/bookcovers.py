@@ -1,25 +1,31 @@
-from bottle import get, post, delete,    request, route,put, response, auth_basic
+from bottle import get, post, delete,    request, route,put, response, auth_basic, route
 from models.bookcovers import BookCovers
 from models.admins import Admins
 import json
 
 from api.cors import enable_cors
 
-
-@get('/bookcovers')
+@route('/bookcovers', method=['OPTIONS', 'GET'])
+# @get('/bookcovers')
 @enable_cors
 def bookscoverslist():
     return BookCovers.getAll()
 
-@get('/bookcovers/<bookid>')
+
+
+@route('/bookcovers/<bookid>', method=['OPTIONS', 'GET'])
+# @get('/bookcovers/<bookid>')
 @enable_cors
 def bookid(bookid):
     return BookCovers.getByIdOfBook(bookid)
 
+
+
 #409 already exists cover for this book
 #400 invalid request or no such book id in books collection
 #201 success
-@post('/bookcovers/<bookid>')
+@route('/bookcovers/<bookid>', method=['OPTIONS', 'POST'])
+# @post('/bookcovers/<bookid>')
 @enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def createbybookid(bookid):
@@ -31,7 +37,8 @@ def createbybookid(bookid):
 
 
 #400 no such id, invalid request or sth else
-@delete('/bookcovers/<bookid>')
+@route('/bookcovers/<bookid>', method=['OPTIONS', 'DELETE'])
+# @delete('/bookcovers/<bookid>')
 @enable_cors
 @auth_basic(Admins.isCredentialsValid)
 def deletebybookid(bookid):
