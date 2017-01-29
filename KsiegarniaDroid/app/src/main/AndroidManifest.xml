@@ -20,11 +20,12 @@
         </activity>
         <activity android:name=".act.AuthorsListActivity" />
         <activity android:name=".act.BooksListActivity" />
-        <activity android:name=".act.BoughtActivity" />
+        <activity android:name=".act.BoughtListActivity" />
         <activity android:name=".act.BasketActivity" />
+        <activity android:name=".act.LoginActivity" />
         <activity android:name=".act.RegisterActivity" />
         <activity android:name=".act.SummaryActivity" />
-        <activity android:name=".act.BookDetailsInfo"></activity>
+        <activity android:name=".act.BookDetailsInfo" />
     </application>
 
 </manifest>

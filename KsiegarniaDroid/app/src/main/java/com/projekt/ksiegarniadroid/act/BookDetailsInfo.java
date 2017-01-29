@@ -21,33 +21,40 @@ public class BookDetailsInfo extends Activity {
     private Button btnAddBookToBasket;
     private Button btnGoToBasket;
     private Book book;
+    private ArrayList<Book> basket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details_info);
         book = (Book) getIntent().getSerializableExtra("Book");
+        basket = SharedPreferencesAdapter.Instance().getBasket();
         setControls();
         setEvents();
     }
 
-    private void setControls() {
-        btnAddBookToBasket = (Button) findViewById(R.id.btnAddBookToBasket);
-        ArrayList<String> basket = SharedPreferencesAdapter.Instance().getBasket();
-        if(basket.contains(book.getId()) && book.getEbook()){
+    @Override
+    protected void onStart() {
+        super.onStart();
+        basket = SharedPreferencesAdapter.Instance().getBasket();
+        if(basket.contains(book) && book.getEbook()){
             btnAddBookToBasket.setEnabled(false);
-        } else if(basket.contains(book.getId())){
+        } else if(basket.contains(book)){
             int countBookInBasket = 0;
             for (int i=0; i<basket.size(); i++){
-                if(basket.get(i).equals(book.getId()))
+                if(basket.get(i).getId().equals(book.getId()))
                     countBookInBasket++;
             }
             if(countBookInBasket>=book.getAvailability())
                 btnAddBookToBasket.setEnabled(false);
         }
-        btnGoToBasket = (Button) findViewById(R.id.btnGoToBasket);
         if(basket.size()>0)
             btnGoToBasket.setVisibility(View.VISIBLE);
+    }
+
+    private void setControls() {
+        btnAddBookToBasket = (Button) findViewById(R.id.btnAddBookToBasket);
+        btnGoToBasket = (Button) findViewById(R.id.btnGoToBasket);
         TextView tv = (TextView) findViewById(R.id.tvBookTitle);
         tv.setText(book.getTitle());
         tv = (TextView) findViewById(R.id.tvDescription);
@@ -74,14 +81,14 @@ public class BookDetailsInfo extends Activity {
         btnAddBookToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> basket = SharedPreferencesAdapter.Instance().getBasket();
+                ArrayList<Book> basket = SharedPreferencesAdapter.Instance().getBasket();
                 if (!book.getEbook() && book.getAvailability() > 0) {
-                    basket.add(book.getId());
+                    basket.add(book);
                     Toast.makeText(getApplicationContext(), "Dodano książkę do koszyka!",Toast.LENGTH_SHORT).show();
                     SharedPreferencesAdapter.Instance().setBasket(basket);
                     book.setAvailability(book.getAvailability()-1);
                 } else if(book.getEbook()){
-                    basket.add(book.getId());
+                    basket.add(book);
                     Toast.makeText(getApplicationContext(), "Dodano ebook do koszyka!",Toast.LENGTH_SHORT).show();
                     SharedPreferencesAdapter.Instance().setBasket(basket);
                     btnAddBookToBasket.setEnabled(false);
@@ -91,6 +98,15 @@ public class BookDetailsInfo extends Activity {
                 }
                 if(basket.size()>0)
                     btnGoToBasket.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btnGoToBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }

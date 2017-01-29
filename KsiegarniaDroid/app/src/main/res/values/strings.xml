@@ -13,4 +13,19 @@
     <string name="btn_ebookIsAlreadyInBasket">Ebook znajduje się juz w koszyku</string>
     <string name="tv_currency">zł</string>
     <string name="btn_goToBasket">Przejdź do koszyka</string>
+    <string name="btn_buy">Kup</string>
+    <string name="btn_summary">Podsumowanie</string>
+    <string name="tv_lastName">Nazwisko</string>
+    <string name="tv_email">Emial</string>
+    <string name="tv_address">Adres</string>
+    <string name="tv_sex">Płeć</string>
+    <string name="rb_male">Male</string>
+    <string name="rb_female">Female</string>
+    <string name="tv_loggedAs">Zalogowano jako:</string>
+    <string name="tv_notLoggedIn">Nie zalogowano</string>
+    <string name="btn_logout">Wyloguj</string>
+    <string name="btn_books">Książki</string>
+    <string name="btn_booksAuthors">Autorzy książek</string>
+    <string name="btn_bought">Kupione</string>
+    <string name="btn_basket">Koszyk</string>
 </resources>

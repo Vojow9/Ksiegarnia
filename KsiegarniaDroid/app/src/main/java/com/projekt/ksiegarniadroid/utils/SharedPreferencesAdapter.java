@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.projekt.ksiegarniadroid.objects.Book;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -60,17 +61,17 @@ public final class SharedPreferencesAdapter {
         _sharedPreferences.edit().putString(C_LOGIN_PASSWORD, password).apply();
     }
 
-    public void setBasket(ArrayList<String> basketList) {
+    public void setBasket(ArrayList<Book> basketList) {
         String basketStr = new Gson().toJson(basketList);
         _sharedPreferences.edit().putString(C_BASKET, basketStr).apply();
     }
 
-    public ArrayList<String> getBasket() {
+    public ArrayList<Book> getBasket() {
         String str = _sharedPreferences.getString(C_BASKET, null);
 
-        Type type = new TypeToken<ArrayList<String>>() {
+        Type type = new TypeToken<ArrayList<Book>>() {
         }.getType();
-        ArrayList<String> restoreData = new Gson().fromJson(str, type);
+        ArrayList<Book> restoreData = new Gson().fromJson(str, type);
         if (restoreData != null)
             return restoreData;
         else return new ArrayList<>();

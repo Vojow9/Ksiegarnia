@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.projekt.ksiegarniadroid.R;
 
-public class BoughtActivity extends Activity {
+public class BoughtListActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
