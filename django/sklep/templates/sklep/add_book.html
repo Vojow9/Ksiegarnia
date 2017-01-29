@@ -23,14 +23,17 @@
           <input type="text" class="form-control" id="quanity" name="availability" placeholder="Ilość" required>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="authors" name="authors[]" placeholder="Autor" required>
-          <select>
-    <option value="" disabled="disabled" selected="selected">Please select name</option>
-  <option value="Tom">Tom</option>
-  <option value="Marry">Marry</option>
-  <option value="Jane">Jane</option>
-  <option value="Harry">Harry</option>
-</select>
+
+            <select multiple="multiple" name="authors[]">
+
+              {% for author in authors %}
+
+                  <option name="authors[]" value={{author.id}} >	{{author.name}} </option>
+
+               {% endfor %}
+            </select>
+
+
         </div>
         <div class="form-group">
                      <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[]" placeholder="Lista rozdziałów" maxlength="140" rows="7"></textarea>
@@ -94,7 +97,8 @@ function submit(){
         }
         return xhr;
       }
-      var xhr = createCORSRequest('POST','http://localhost:8080/books')
+      var xhr = createCORSRequest('POST','http://localhost:8080/books');
+      xhr.setRequestHeader('X-test','one');
 
       //xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
       xhr.onload = function () {
