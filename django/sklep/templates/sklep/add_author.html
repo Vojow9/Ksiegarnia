@@ -56,7 +56,7 @@ var  author =  JSON.stringify($('#myform').serializeObject());
     }
     var xhr = createCORSRequest('POST','http://localhost:8080/authors')
 
-    //xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
+    xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
     xhr.onload = function () {
     console.log(this.responseText);
     };
