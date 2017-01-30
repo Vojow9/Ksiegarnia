@@ -25,16 +25,13 @@
 document.getElementById("submit").onclick = function() {submit()};
 
 
-
 function submit(){
 
-  var array = $("form.myform").serializeArray();
-  var data = JSON.parse(JSON.stringify(array));
+var  author =  JSON.stringify($('#myform').serializeObject());
 
-    console.log(data);
-    //var username = 'admin';
-    // var password = 'qwerty';
-  /*  function createCORSRequest(method, url) {
+    console.log(author);
+
+    function createCORSRequest(method, url) {
       var xhr = new XMLHttpRequest();
       if ("withCredentials" in xhr) {
 
@@ -57,19 +54,15 @@ function submit(){
       }
       return xhr;
     }
-    var xhr = createCORSRequest('POST','http://localhost:8080/authors')
-    //xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));*/
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST','http://localhost:8080/authors',true);
-    xhr.withCredentials = true;
+    var xhr = createCORSRequest('POST','http://localhost:8080/authors');
+	
+	
     xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
     xhr.onload = function () {
     console.log(this.responseText);
     };
-    xhr.send(data);
+    xhr.send(author);
     };
-
-
 
 
 

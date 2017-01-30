@@ -1,9 +1,11 @@
 {% extends 'sklep/base.html' %}
-
+{% load static from staticfiles %}
 {% block content %}
     <div class="book">
         <h1>{{ book.title }}</h1>
-		<img src="{{book.graphics}}">
+
+
+		<img src="{% static url %}"   />
 		{% for author in authors %}
 		<div class="author"><br>{{ author }}</br></div>
 		{% endfor %}
