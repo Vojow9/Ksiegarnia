@@ -77,7 +77,16 @@ TEMPLATES = [
         },
     },
 ]
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    '/static/media/',
+    '/media/',
+    TEMPLATE_PATH,
+)
 
 
 WSGI_APPLICATION = 'ksiegarnia.wsgi.application'
@@ -117,6 +126,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Absolute path to the media directory
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public', 'static')

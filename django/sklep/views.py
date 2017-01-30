@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .services import getBooksList, getBookById, getAuthorsList, getAuthorById, getBook
+from .services import getBooksList, getBookById, getAuthorsList, getAuthorById, getBook, getBookCoverById
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
@@ -14,19 +14,21 @@ def book_list(request):
 	books = getBooksList()
 	av = list()
 	for book in books:
+		getBookCoverById(book['id'])
 		if book['isEbook'] == True or int(book['availability']) > 0:
 			av.append(book)
 	return render(request, 'sklep/book_list.html', {'books':av})
 
 def book_detail(request, pk):
-    book = getBookById(pk)
-    al = book['authors']
-    an = list()
-    for aut in al:
-        an.append(getAuthorById(aut)['name'])
-        print(an)
+	book = getBookById(pk)
+	url = "media/"+book['id']+".jpg"
+	print(url)
+	al = book['authors']
+	an = list()
+	for aut in al:
+		an.append(getAuthorById(aut)['name'])
 
-    return render(request, 'sklep/book_detail.html', {'book': book,'authors':an})
+	return render(request, 'sklep/book_detail.html', {'book': book,'authors':an , 'url':url})
 
 def book(request):
     books = getBook()

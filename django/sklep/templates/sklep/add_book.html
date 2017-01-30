@@ -36,28 +36,26 @@
 
         </div>
         <div class="form-group">
-                     <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[]" placeholder="Lista rozdziałów" maxlength="140" rows="7"></textarea>
+                     <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[0]" placeholder="Rozdział 1" >
+                     <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[1]" placeholder="Rozdział 2" >
+                     <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[2]" placeholder="Rozdział 3" >
+                     <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[3]" placeholder="Rozdział 4" >
+                     <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[4]" placeholder="Rozdział 5" >
+                     <input class="form-control" type="text" id="tableOfContents" name="tableOfContents[5]" placeholder="Rozdział 6" >
         </div>
         <div class="form-group">
-                  <input class="form-control" type="textarea" id="description" name="description" placeholder="Opis" maxlength="140" rows="7"></textarea>
+                  <input class="form-control" type="textarea" id="description" name="description" placeholder="Opis" maxlength="140" rows="7">
         </div>
 
 
 
   </form>
-      <div class="input-group image-preview">
-               <span class="input-group-btn">
 
-                   <div class="btn btn-default image-preview-input">
-                       <span class="glyphicon glyphicon-folder-open"></span>
-                       <span class="image-preview-input-title">Przeglądaj</span>
-                       <input type="file"  id="cover" name="cover"  accept="image/png, image/jpeg, image/gif" />
-                   </div>
-               </span>
-           </div>
-
-
-
+  <input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+  <div id="imgTest"></div>
+  <div>
+  <input id="id" type="text">
+</div>
       <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Dodaj</button>
 
   </div>
@@ -68,50 +66,85 @@
 
 document.getElementById("submit").onclick = function() {submit()};
 
+
 function submit(){
 
   var  book =  JSON.stringify($('#myform').serializeObject());
 
       console.log(book);
 
-      function createCORSRequest(method, url) {
-        var xhr = new XMLHttpRequest();
-        if ("withCredentials" in xhr) {
-
-          // Check if the XMLHttpRequest object has a "withCredentials" property.
-          // "withCredentials" only exists on XMLHTTPRequest2 objects.
-          xhr.open(method, url, true);
-
-        } else if (typeof XDomainRequest != "undefined") {
-
-          // Otherwise, check if XDomainRequest.
-          // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-          xhr = new XDomainRequest();
-          xhr.open(method, url);
-
-        } else {
-
-          // Otherwise, CORS is not supported by the browser.
-          xhr = null;
-
-        }
-        return xhr;
-      }
       var xhr = createCORSRequest('POST','http://localhost:8080/books');
-      xhr.setRequestHeader('X-test','one');
-
        xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
       xhr.onload = function () {
       console.log(this.responseText);
       };
       xhr.send(book);
+
+
       };
 
 
+      function encodeImageFileAsURL() {
+
+     var filesSelected = document.getElementById("inputFileToLoad").files;
+     if (filesSelected.length > 0) {
+       var fileToLoad = filesSelected[0];
+
+       var fileReader = new FileReader();
+
+       fileReader.onload = function(fileLoadedEvent) {
+         var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+
+         var id = document.getElementById("id").value;
 
 
 
+         var newImage = document.createElement('img');
+         newImage.src = srcData;
 
+         var cover = newImage.src;
+
+         document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+         var imagestr = cover.split(',')[1];
+         console.log(imagestr);
+
+
+         var xhr = createCORSRequest('POST','http://localhost:8080/bookcovers/'+id)
+         xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
+         xhr.onload = function () {
+         console.log(this.responseText);
+         };
+         xhr.send(imagestr);
+
+       }
+       fileReader.readAsDataURL(fileToLoad);
+     }
+
+   }
+   function createCORSRequest(method, url) {
+     var xhr = new XMLHttpRequest();
+     if ("withCredentials" in xhr) {
+
+       // Check if the XMLHttpRequest object has a "withCredentials" property.
+       // "withCredentials" only exists on XMLHTTPRequest2 objects.
+       xhr.open(method, url, true);
+
+     } else if (typeof XDomainRequest != "undefined") {
+
+       // Otherwise, check if XDomainRequest.
+       // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+       xhr = new XDomainRequest();
+       xhr.open(method, url);
+
+     } else {
+
+       // Otherwise, CORS is not supported by the browser.
+       xhr = null;
+
+     }
+     return xhr;
+   }
 </script>
 
 {% endblock %}
