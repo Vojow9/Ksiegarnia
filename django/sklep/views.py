@@ -14,10 +14,10 @@ def book_list(request):
 	books = getBooksList()
 	av = list()
 	for book in books:
-		getBookCoverById(book['id'])
+		url = "media/"+getBookCoverById(book['id'])+".jpg"
 		if book['isEbook'] == True or int(book['availability']) > 0:
 			av.append(book)
-	return render(request, 'sklep/book_list.html', {'books':av})
+	return render(request, 'sklep/book_list.html', {'books':av, 'url':url})
 
 def book_detail(request, pk):
 	book = getBookById(pk)

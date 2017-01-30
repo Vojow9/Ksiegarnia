@@ -11,7 +11,7 @@ def getBooksList():
 
 def getBookCoverById(id):
     url = id+'.jpg'
-    des = r"C:\Users\Wojtek\Documents\GitHub\Ksiegarnia\django\static\media\\"
+    des = r"C:\Users\magda\Desktop\Ksiegarnia\django\static\media\\"
     if os.path.isfile(des+url):
         return id
     else:
