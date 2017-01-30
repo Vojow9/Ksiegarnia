@@ -4,6 +4,7 @@ import com.projekt.ksiegarniadroid.exceptions.RESTClientException;
 import com.projekt.ksiegarniadroid.objects.Author;
 import com.projekt.ksiegarniadroid.objects.Book;
 import com.projekt.ksiegarniadroid.objects.Customer;
+import com.projekt.ksiegarniadroid.utils.SharedPreferencesAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +33,22 @@ public class RESTClientAdapter {
     }
 
     public static Customer login(String userName, String password) throws RESTClientException {
-        return RESTClient.doGet(URL,"login/"+ userName, userName, password, Customer.class);
+        return RESTClient.doGet(URL,"customers/"+ userName, userName, password, Customer.class);
+    }
+
+    public static void register(Customer newUser) throws RESTClientException {
+        RESTClient.doPost(URL, "customers", "", "", newUser);
+    }
+
+    public static void buy(ArrayList<String> books) throws RESTClientException {
+        RESTClient.doPost(URL, "customers/availablebooks/" + SharedPreferencesAdapter.Instance().getLogin(), SharedPreferencesAdapter.Instance().getLogin(), SharedPreferencesAdapter.Instance().getLoginPassword(), books);
+    }
+
+    public static ArrayList<Book> getBoughtBooks() throws RESTClientException {
+        return new ArrayList<>(Arrays.asList(RESTClient.doGet(URL,"customers/availablebooks/"+ SharedPreferencesAdapter.Instance().getLogin(), SharedPreferencesAdapter.Instance().getLogin(), SharedPreferencesAdapter.Instance().getLoginPassword(), Book[].class)));
+    }
+
+    public static Book getBook(String bookId) throws RESTClientException {
+        return RESTClient.doGet(URL, "books/" + bookId, Book.class);
     }
 }

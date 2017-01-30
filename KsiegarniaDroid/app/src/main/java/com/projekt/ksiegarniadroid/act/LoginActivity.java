@@ -23,6 +23,7 @@ public class LoginActivity extends Activity {
     private EditText etUsername;
     private EditText etPassword;
     private Customer user;
+    private final int REGISTER_ACTIVITY_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,15 @@ public class LoginActivity extends Activity {
                 }
             }
         });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivityForResult(intent, REGISTER_ACTIVITY_CODE);
+                finish();
+            }
+        });
     }
 
     private void login(final String username, final String password){
@@ -68,7 +78,7 @@ public class LoginActivity extends Activity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                if(RESTClient.resCode!=404 && RESTClient.resCode!=400) {
+                if(RESTClient.resCode==200) {
                     SharedPreferencesAdapter.Instance().setLogin(username);
                     SharedPreferencesAdapter.Instance().setLoginPassword(password);
                     Intent returnIntent = new Intent();

@@ -28,7 +28,7 @@ public class RESTClient {
 
     public static int resCode;
 
-    public static int doPost(String baseAddress, String methodName, String userName, String userPassword, Object inputObject)
+    public static void doPost(String baseAddress, String methodName, String userName, String userPassword, Object inputObject)
             throws RESTClientException {
         if (baseAddress == null || baseAddress == "")
             throw new IllegalArgumentException(
@@ -41,31 +41,36 @@ public class RESTClient {
                     "Argument 'inputObject' is null.");
         try {
             URL url = new URL(buildURL(baseAddress, methodName));
-            byte[] loginBytes = (userName + ":" + userPassword).getBytes();
-            String loginBuilder = "Basic " + Base64.encodeToString(loginBytes, Base64.DEFAULT);
+
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
-            httpURLConnection.setRequestProperty("Authorization", loginBuilder);
-
+            if (!userName.equals("") && !userPassword.equals("")) {
+                byte[] loginBytes = (userName + ":" + userPassword).getBytes();
+                String loginBuilder = "Basic " + Base64.encodeToString(loginBytes, Base64.DEFAULT);
+                httpURLConnection.setRequestProperty("Authorization", loginBuilder);
+            }
             httpURLConnection.connect();
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
             wr.write(buildStringEntity(inputObject).getBytes());
             wr.flush();
             wr.close();
             InputStream is = httpURLConnection.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            int responseCode = httpURLConnection.getResponseCode();
+            Log.d("POST_GET", "Sending 'POST' request to URL : " + url);
+            Log.d("POST_GET", "Response Code : " + responseCode);
+            resCode = responseCode;
+            /* BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line;
             StringBuilder responseOutput = new StringBuilder();
             while ((line = br.readLine()) != null) {
                 responseOutput.append(line);
             }
-            br.close();
+            br.close();*/
             is.close();
             httpURLConnection.disconnect();
-            return httpURLConnection.getResponseCode();
         } catch (Exception e) {
             throw new RESTClientException(e);
         }

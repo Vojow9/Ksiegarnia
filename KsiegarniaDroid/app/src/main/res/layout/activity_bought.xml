@@ -10,4 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.projekt.ksiegarniadroid.act.BoughtListActivity">
 
+    <ListView
+        android:id="@+id/lvBooks"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:divider="@drawable/list_driver"
+        android:dividerHeight="5dp" />
+
 </RelativeLayout>
