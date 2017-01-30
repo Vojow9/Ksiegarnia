@@ -47,7 +47,8 @@ def shop_detail(request):
 
 def add_book(request):
 	authors = getAuthorsList()
-	return render(request, 'sklep/add_book.html',{'authors':authors})
+	books = getBooksList()
+	return render(request, 'sklep/add_book.html',{'authors':authors, 'books':books})
 
 def add_author(request):
     return render(request, 'sklep/add_author.html')
