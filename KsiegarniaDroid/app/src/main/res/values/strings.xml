@@ -1,4 +1,31 @@
 <resources>
     <string name="app_name">KsiegarniaDroid</string>
-    <string name="facebook_app_id">1230595910347783</string>
+    <string name="tv_login">Login</string>
+    <string name="tv_password">Hasło</string>
+    <string name="btn_login">Zaloguj</string>
+    <string name="tv_name">Imię</string>
+    <string name="tv_description">Opis</string>
+    <string name="tv_repeatPassword">Powtórz hasło</string>
+    <string name="btn_register">Zarejestruj</string>
+    <string name="btn_addBookToBasket">Dodaj do koszyka</string>
+    <string name="tv_ebook">Ebook</string>
+    <string name="tv_book">Książka</string>
+    <string name="btn_ebookIsAlreadyInBasket">Ebook znajduje się juz w koszyku</string>
+    <string name="tv_currency">zł</string>
+    <string name="btn_goToBasket">Przejdź do koszyka</string>
+    <string name="btn_buy">Kup</string>
+    <string name="btn_summary">Podsumowanie</string>
+    <string name="tv_lastName">Nazwisko</string>
+    <string name="tv_email">Emial</string>
+    <string name="tv_address">Adres</string>
+    <string name="tv_sex">Płeć</string>
+    <string name="rb_male">Male</string>
+    <string name="rb_female">Female</string>
+    <string name="tv_loggedAs">Zalogowano jako:</string>
+    <string name="tv_notLoggedIn">Nie zalogowano</string>
+    <string name="btn_logout">Wyloguj</string>
+    <string name="btn_books">Książki</string>
+    <string name="btn_booksAuthors">Autorzy książek</string>
+    <string name="btn_bought">Kupione</string>
+    <string name="btn_basket">Koszyk</string>
 </resources>

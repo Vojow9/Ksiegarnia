@@ -45,9 +45,7 @@ public class AuthorsAdapterView extends BaseAdapter {
             convertView = inflater.inflate(R.layout.author_list_item, null);
         }
 
-        TextView tv = (TextView) convertView.findViewById(R.id.tvAuthorId);
-        tv.setText(entry.get_id().get$oid());
-        tv = (TextView) convertView.findViewById(R.id.tvAuthorName);
+        TextView tv = (TextView) convertView.findViewById(R.id.tvAuthorName);
         tv.setText(entry.getName());
         tv = (TextView) convertView.findViewById(R.id.tvDescription);
         tv.setText(entry.getDescription());
