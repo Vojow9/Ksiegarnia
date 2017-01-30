@@ -3,6 +3,7 @@ package com.projekt.ksiegarniadroid.connectivity;
 import com.projekt.ksiegarniadroid.exceptions.RESTClientException;
 import com.projekt.ksiegarniadroid.objects.Author;
 import com.projekt.ksiegarniadroid.objects.Book;
+import com.projekt.ksiegarniadroid.objects.Customer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,4 +31,7 @@ public class RESTClientAdapter {
         return RESTClient.doGetPicture(URL, "bookcovers/" + bookId);
     }
 
+    public static Customer login(String userName, String password) throws RESTClientException {
+        return RESTClient.doGet(URL,"login/"+ userName, userName, password, Customer.class);
+    }
 }

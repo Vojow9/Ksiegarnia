@@ -102,6 +102,17 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, LOGIN_ACTIVITY_CODE);
             }
         });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferencesAdapter.Instance().setLogin("");
+                SharedPreferencesAdapter.Instance().setLoginPassword("");
+                tvLoggedAs.setText(getString(R.string.tv_notLoggedIn));
+                btnLogout.setEnabled(false);
+                btnLogin.setEnabled(true);
+            }
+        });
     }
 
     @Override

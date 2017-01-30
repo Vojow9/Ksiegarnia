@@ -37,8 +37,13 @@ public class BookDetailsInfo extends Activity {
     protected void onStart() {
         super.onStart();
         basket = SharedPreferencesAdapter.Instance().getBasket();
-        if(basket.contains(book) && book.getEbook()){
-            btnAddBookToBasket.setEnabled(false);
+        if(book.getEbook()){
+            for(Book ebook : basket){
+                if(ebook.getId().equals(book.getId())){
+                    btnAddBookToBasket.setEnabled(false);
+                    break;
+                }
+            }
         } else if(basket.contains(book)){
             int countBookInBasket = 0;
             for (int i=0; i<basket.size(); i++){
@@ -105,7 +110,7 @@ public class BookDetailsInfo extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
