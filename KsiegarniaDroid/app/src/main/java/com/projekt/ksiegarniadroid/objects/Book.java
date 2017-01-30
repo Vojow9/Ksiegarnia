@@ -9,6 +9,8 @@ import java.io.Serializable;
 public class Book implements Serializable {
     private String id;
 
+    private String bookid;
+
     private String[] authors;
 
     private String title;
@@ -25,75 +27,63 @@ public class Book implements Serializable {
 
     private int availability;
 
+    private String purchasedate;
+
     private byte[] bookCover;
 
-    public String getId ()
-    {
+    public String getId() {
         return id;
     }
 
-    public void setId (String id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String[] getAuthors ()
-    {
+    public String[] getAuthors() {
         return authors;
     }
 
-    public void setAuthors (String[] authors)
-    {
+    public void setAuthors(String[] authors) {
         this.authors = authors;
     }
 
-    public String getTitle ()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle (String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getPrice ()
-    {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice (String price)
-    {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public String getISBN ()
-    {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN (String ISBN)
-    {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 
-    public String getDescription ()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription (String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String[] getTableOfContents ()
-    {
+    public String[] getTableOfContents() {
         return tableOfContents;
     }
 
-    public void setTableOfContents (String[] tableOfContents)
-    {
+    public void setTableOfContents(String[] tableOfContents) {
         this.tableOfContents = tableOfContents;
     }
 
@@ -101,17 +91,15 @@ public class Book implements Serializable {
         isEbook = ebook;
     }
 
-    public boolean getEbook(){
+    public boolean getEbook() {
         return isEbook;
     }
 
-    public int getAvailability ()
-    {
+    public int getAvailability() {
         return availability;
     }
 
-    public void setAvailability (int availability)
-    {
+    public void setAvailability(int availability) {
         this.availability = availability;
     }
 
@@ -121,5 +109,21 @@ public class Book implements Serializable {
 
     public void setBookCover(byte[] bookCover) {
         this.bookCover = bookCover;
+    }
+
+    public String getPurchasedate() {
+        return purchasedate;
+    }
+
+    public void setPurchasedate(String purchasedate) {
+        this.purchasedate = purchasedate;
+    }
+
+    public String getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(String bookid) {
+        this.bookid = bookid;
     }
 }

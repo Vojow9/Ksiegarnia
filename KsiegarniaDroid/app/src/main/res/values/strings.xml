@@ -19,8 +19,8 @@
     <string name="tv_email">Emial</string>
     <string name="tv_address">Adres</string>
     <string name="tv_sex">Płeć</string>
-    <string name="rb_male">Male</string>
-    <string name="rb_female">Female</string>
+    <string name="rb_male">Mężczyzna</string>
+    <string name="rb_female">Kobieta</string>
     <string name="tv_loggedAs">Zalogowano jako:</string>
     <string name="tv_notLoggedIn">Nie zalogowano</string>
     <string name="btn_logout">Wyloguj</string>

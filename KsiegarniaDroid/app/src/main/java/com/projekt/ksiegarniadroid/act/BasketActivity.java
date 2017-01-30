@@ -31,6 +31,8 @@ public class BasketActivity extends Activity {
     private BasketAdapterView adapter;
     private ListView lvBooks;
     private Button btnSummary;
+    private final int LOGIN_ACTIVITY_CODE = 100;
+    private final int SUMMARY_ACTIVITY_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +80,26 @@ public class BasketActivity extends Activity {
         btnSummary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (books.size() > 0) {
+                if (books.size() > 0 && !SharedPreferencesAdapter.Instance().getLogin().equals("")) {
                     Intent intent = new Intent(getApplicationContext(), SummaryActivity.class);
-                    startActivity(intent);
-                } else
+                    startActivityForResult(intent, SUMMARY_ACTIVITY_CODE);
+                } else if(SharedPreferencesAdapter.Instance().getLogin().equals("")){
+                    new AlertDialog.Builder(BasketActivity.this)
+                            .setTitle("Logowanie")
+                            .setMessage("Należy się zalogować by zakupić książki. Chcesz się zalogować?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    startActivityForResult(intent, LOGIN_ACTIVITY_CODE);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            }).show();
+                }
+                else
                     Toast.makeText(getApplicationContext(), "Brak książek w koszyku", Toast.LENGTH_SHORT).show();
             }
         });
@@ -95,6 +113,18 @@ public class BasketActivity extends Activity {
 
     private void setBooks() {
         books = SharedPreferencesAdapter.Instance().getBasket();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == LOGIN_ACTIVITY_CODE && resultCode == RESULT_OK){
+            Intent intent = new Intent(getApplicationContext(), SummaryActivity.class);
+            startActivity(intent);
+        }
+        if(requestCode == SUMMARY_ACTIVITY_CODE && resultCode == RESULT_OK){
+            finish();
+        }
     }
 
 

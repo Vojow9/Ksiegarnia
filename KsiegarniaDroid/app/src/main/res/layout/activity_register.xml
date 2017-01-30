@@ -79,19 +79,21 @@
                 android:textStyle="bold" />
 
             <RadioGroup
+                android:id="@+id/rgSex"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <RadioButton
-                    android:id="@+id/radio_pirates"
+                    android:id="@+id/rbMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onRadioButtonClicked"
+                    android:checked="true"
                     android:text="@string/rb_male" />
 
                 <RadioButton
-                    android:id="@+id/radio_ninjas"
+                    android:id="@+id/rbFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onRadioButtonClicked"

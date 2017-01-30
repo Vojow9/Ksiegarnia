@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
         super.onStart();
         String username = SharedPreferencesAdapter.Instance().getLogin();
         if(!username.equals("")) {
-            tvLoggedAs.setText(getString(R.string.tv_loggedAs) + username);
+            tvLoggedAs.setText(getString(R.string.tv_loggedAs) + " " + username);
             btnLogout.setEnabled(true);
             btnLogin.setEnabled(false);
         } else {
@@ -120,7 +120,7 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == LOGIN_ACTIVITY_CODE && resultCode == RESULT_OK){
             String username = SharedPreferencesAdapter.Instance().getLogin();
-            tvLoggedAs.setText(getString(R.string.tv_loggedAs) + username);
+            tvLoggedAs.setText(getString(R.string.tv_loggedAs) + " " +username);
         }
     }
 }
