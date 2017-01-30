@@ -4,33 +4,63 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.projekt.ksiegarniadroid.act.MainActivity"
-    android:orientation="vertical">
+    tools:context="com.projekt.ksiegarniadroid.act.MainActivity">
 
     <TextView
-        android:id="@+id/tvAppName"
+        android:id="@+id/tvLoggedAs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="20sp"
-        android:text="Księgarnia" />
-
-    <Button
-        android:id="@+id/btnAuthors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Autorzy książek" />
+        android:layout_marginBottom="10dp"
+        android:text="@string/tv_notLoggedIn"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Książki" />
+        android:text="@string/btn_books" />
+
+    <Button
+        android:id="@+id/btnAuthors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_booksAuthors" />
+
+
+    <Button
+        android:id="@+id/btnBought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_bought" />
+
+    <Button
+        android:id="@+id/btnBasket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_basket" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_login" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_logout" />
 
 </LinearLayout>

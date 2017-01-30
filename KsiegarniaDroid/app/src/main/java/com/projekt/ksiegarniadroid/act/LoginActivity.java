@@ -2,21 +2,27 @@ package com.projekt.ksiegarniadroid.act;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.projekt.ksiegarniadroid.R;
+import com.projekt.ksiegarniadroid.connectivity.RESTClient;
+import com.projekt.ksiegarniadroid.connectivity.RESTClientAdapter;
+import com.projekt.ksiegarniadroid.exceptions.RESTClientException;
+import com.projekt.ksiegarniadroid.objects.Customer;
+import com.projekt.ksiegarniadroid.utils.SharedPreferencesAdapter;
 
 public class LoginActivity extends Activity {
-    CallbackManager callbackManager;
-    LoginButton loginButton;
+
+    private Button btnLogin;
+    private Button btnRegister;
+    private EditText etUsername;
+    private EditText etPassword;
+    private Customer user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,45 +30,55 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         setControls();
         setEvents();
-        if (isLoggedIn()) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+
     }
 
     private void setControls() {
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+        etUsername = (EditText) findViewById(R.id.etLogin);
+        etPassword = (EditText) findViewById(R.id.etPassword);
     }
 
     private void setEvents() {
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
+            public void onClick(View view) {
+                if(etUsername.getText().toString().equals("") || etPassword.getText().toString().equals(""))
+                    Toast.makeText(getApplicationContext(), "Trzeba wypełnić wszystkie pola!", Toast.LENGTH_SHORT).show();
+                else {
+                    login(etUsername.getText().toString(), etPassword.getText().toString());
+                }
             }
         });
     }
 
-    private boolean isLoggedIn() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null;
-    }
+    private void login(final String username, final String password){
+        class LoginAsync extends AsyncTask<Void, Void, Void> {
 
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    user = RESTClientAdapter.login(username, password);
+                } catch (RESTClientException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                if(RESTClient.resCode!=404 && RESTClient.resCode!=400) {
+                    SharedPreferencesAdapter.Instance().setLogin(username);
+                    SharedPreferencesAdapter.Instance().setLoginPassword(password);
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    Toast.makeText(LoginActivity.this, "Zalogowano pomyślnie!", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else Toast.makeText(LoginActivity.this, "Dane logowania są niepoprawne!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        new LoginAsync().execute();
     }
 }

@@ -1,22 +1,19 @@
 package com.projekt.ksiegarniadroid.objects;
 
-import android.content.Intent;
+import java.io.Serializable;
 
 /**
  * Created by Sebo on 2016-11-27.
  */
 
-public class Book
-{
-    private _id[] authors;
+public class Book implements Serializable {
+    private String id;
 
-    private String cover;
+    private String[] authors;
 
     private String title;
 
-    private Double price;
-
-    private _id _id;
+    private String price;
 
     private String ISBN;
 
@@ -24,30 +21,30 @@ public class Book
 
     private String[] tableOfContents;
 
-    private Integer lendPrice;
+    private boolean isEbook;
 
-    private Boolean isEbook;
+    private int availability;
 
-    private String availability;
+    private byte[] bookCover;
 
-    public _id[] getAuthors ()
+    public String getId ()
+    {
+        return id;
+    }
+
+    public void setId (String id)
+    {
+        this.id = id;
+    }
+
+    public String[] getAuthors ()
     {
         return authors;
     }
 
-    public void setAuthors (_id[] authors)
+    public void setAuthors (String[] authors)
     {
         this.authors = authors;
-    }
-
-    public String getCover ()
-    {
-        return cover;
-    }
-
-    public void setCover (String cover)
-    {
-        this.cover = cover;
     }
 
     public String getTitle ()
@@ -60,24 +57,14 @@ public class Book
         this.title = title;
     }
 
-    public Double getPrice ()
+    public String getPrice ()
     {
         return price;
     }
 
-    public void setPrice (Double price)
+    public void setPrice (String price)
     {
         this.price = price;
-    }
-
-    public _id get_id ()
-    {
-        return _id;
-    }
-
-    public void set_id (_id _id)
-    {
-        this._id = _id;
     }
 
     public String getISBN ()
@@ -110,38 +97,29 @@ public class Book
         this.tableOfContents = tableOfContents;
     }
 
-    public Integer getLendPrice ()
-{
-    return lendPrice;
-}
-
-    public void setLendPrice (Integer lendPrice)
-    {
-        this.lendPrice = lendPrice;
+    public void setEbook(boolean ebook) {
+        isEbook = ebook;
     }
 
+    public boolean getEbook(){
+        return isEbook;
+    }
 
-    public String getAvailability ()
+    public int getAvailability ()
     {
         return availability;
     }
 
-    public void setAvailability (String availability)
+    public void setAvailability (int availability)
     {
         this.availability = availability;
     }
 
-    @Override
-    public String toString()
-    {
-        return "[authors = "+authors+", cover = "+cover+", title = "+title+", price = "+price+", _id = "+_id+", ISBN = "+ISBN+", description = "+description+", tableOfContents = "+tableOfContents+", lendPrice = "+lendPrice+", isEbook = "+isEbook+", availability = "+availability+"]";
+    public byte[] getBookCover() {
+        return bookCover;
     }
 
-    public void setIsEbook(Boolean ebook) {
-        isEbook = ebook;
-    }
-
-    public Boolean getIsEbook(){
-        return isEbook;
+    public void setBookCover(byte[] bookCover) {
+        this.bookCover = bookCover;
     }
 }

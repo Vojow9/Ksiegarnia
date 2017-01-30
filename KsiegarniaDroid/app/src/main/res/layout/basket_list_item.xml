@@ -8,8 +8,7 @@
         android:id="@+id/ivBookPicture"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="fitXY" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,32 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cena:"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="#FFCC00"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tvCAvailability"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dostępność:"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="#FFCC00"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvAvailability"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +36,17 @@
         android:id="@+id/tvVersion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cena:"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="#FFCC00"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
-
-
-
