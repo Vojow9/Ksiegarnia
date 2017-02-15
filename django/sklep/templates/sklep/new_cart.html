@@ -1,0 +1,60 @@
+{% extends 'sklep/base.html' %}
+
+{% block content %}
+
+{% if status %}
+    Status: {{ status }}
+{% endif %}
+
+<table id="myTable">
+    {% if request.session.cart %}
+        {% for book in books %}
+            {% if book.id in request.session.cart %}
+            <tr>
+                <td>
+                    <h1><a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1>
+                    <div class="price">Cena: {{ book.price}} zł</div>
+                    <form method="link" action="{% url 'remove_from_cart' book.id %}">
+				        <button type="submit" class="btn btn-default btn-lg">
+  					    	<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Usun pozycje
+				        </button>
+			        </form>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        Nie ma nic w koszyku!
+    {% endif %}
+</table>
+
+Łączna cena to: {{ total }} zł.
+
+<form method="link" action="{% url 'checkout' %}">
+    <button type="submit" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> Checkout
+    </button>
+</form>
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i,pk ;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+{% endblock content %}

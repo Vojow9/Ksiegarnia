@@ -2,20 +2,112 @@
 
 {% block content %}
 
-  <h2>Register</h2>
-
-  {% for field in form %}
-    {{field.error}}
-
-  {% endfor %}
-
-  <form action="/accounts/register/" method="post">{% csrf_token %}
-  {{form}}
-
-
-
-  <input type="submit" value="Register" />
-
+<div class="container">
+<div class="col-md-5">
+    <div>
+        <div class="center" id="register-status"></div>
+    </div>
+  <div class="form-area">
+      <form role="form" id="myform" class="myform">
+      <br style="clear:both">
+                  <h3 style="margin-bottom: 25px; text-align: center;">Rejestracja nowego użytkownika</h3>
+			<div class="form-group">
+				<div class="form-group">
+				<div class="form-group">
+				<input type="text" class="form-control" id="username" name="username" placeholder="Login" required>
+				</div>
+				<div class="form-group">
+				<input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+				</div>
+			<input type="text" class="form-control" id="first_name" name="first_name" placeholder="Imię" required>
+			</div>
+			<input type="text" class="form-control" id="last_name" name="last_name"  placeholder="Nazwisko" required>
+		</div>
+        <div class="form-group">
+		  <p>Podaj swoją płeć:</p>
+		  <div class="form-group">
+          <input type="radio" name="gender" value="Female">Kobieta<br>
+          <input type="radio" name="gender" value="Male" checked>Mężczyzna<br>
+        <div class="form-group">
+              <input type="text" class="form-control" id="address" name="address" placeholder="Adres zamieszkania" >
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Hasło" required>
+        </div>
   </form>
+      <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Zarejestruj</button>
+  </div>
+</div>
+</div>
+
+  <script>
+
+function setRegisterStatus(statusType, text) {
+    html_status = '<span class="label ' + statusType + '">'+ text + '</span>'
+    $('#register-status').html(html_status);
+}
+
+document.getElementById("submit").onclick = function() {submit()};
+
+
+function submit(){
+
+var  customer =  JSON.stringify($('#myform').serializeObject());
+
+    console.log(customer);
+
+    function createCORSRequest(method, url) {
+      var xhr = new XMLHttpRequest();
+      if ("withCredentials" in xhr) {
+
+        // Check if the XMLHttpRequest object has a "withCredentials" property.
+        // "withCredentials" only exists on XMLHTTPRequest2 objects.
+        xhr.open(method, url, true);
+
+      } else if (typeof XDomainRequest != "undefined") {
+
+        // Otherwise, check if XDomainRequest.
+        // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+
+      } else {
+
+        // Otherwise, CORS is not supported by the browser.
+        xhr = null;
+
+      }
+      return xhr;
+    }
+    var xhr = createCORSRequest('POST','http://localhost:8080/customers');
+
+    xhr.setRequestHeader("Authorization", 'Basic ' + btoa('admin:qwerty'));
+    xhr.onload = function () {
+        console.log("Success!");
+        var status_text = this.statusText;
+        var status = this.status;
+        if (status == 409){
+            setRegisterStatus('label-danger', 'Bład rejestracji! Proszę poprawić dane.')
+        }else if (status == 201) {
+            setRegisterStatus('label-success', 'Konto zostało utworzone')
+        }
+        console.log(this);
+    };
+
+    xhr.onerror = function() {
+        console.log('There was an error!');
+    };
+
+    xhr.onloadend = function() {
+        console.log("Yellow mellow");
+        console.log(this.responseText);
+    };
+
+        xhr.send(customer);
+    };
+
+
+
+	</script>
 
 {% endblock %}

@@ -11,7 +11,7 @@ def getBooksList():
 
 def getBookCoverById(id):
     url = id+'.jpg'
-    des = r"C:\Users\magda\Desktop\Ksiegarnia\django\static\media\\"
+    des = r"C:\Users\Kasia\Desktop\Ksiegarnia-master\django\static\media\\"
     if os.path.isfile(des+url):
         return id
     else:
@@ -40,6 +40,14 @@ def getAuthorById(id):
     authors = requests.get('http://localhost:8080/authors/' + id).json()
     return authors
 
+def getCustomerById(id):
+	customers = requests.get('http://localhost:8080/customers/' + id).json()
+	return customers	
+	
+def getCustomersById(id):
+	customers = requests.get('http://localhost:8080/customers/').json()
+	return customers
+	
 def postBook(data):
     return requests.post('http://localhost:8080/books/',data)
 

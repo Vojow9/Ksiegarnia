@@ -15,4 +15,11 @@
 		<a href="{% url 'shop_detail'%}">{{ book.ebook}}</a>
 		<br><a href="{% url 'shop_detail'%}">{{ book.paper}}</a></br>
     </div>
+
+			<form method="link" action="{% url 'add_to_cart' book.id %}">
+				<button type="submit" class="btn btn-default btn-lg">
+  						<span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> Dodaj do koszyka
+				</button>
+			</form>
+
 {% endblock %}

@@ -12,9 +12,31 @@
 			<div class="price">Cena: {{ book.price}} zł</div>
 		</td>
 	</tr>
+{% endfor %}
 
- {% endfor %} 
 </table>
+
+
+  <h2>Register</h2>
+
+  {% for field in form %}
+    {{field.error}}
+
+  {% endfor %}
+
+  <form action="/accounts/register/" method="post">{% csrf_token %}
+  {{form}}
+
+
+
+  <input type="submit" value="Register" />
+
+  </form>
+
+
+</table>
+
+
 
 <script>
 function myFunction() {

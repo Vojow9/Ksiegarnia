@@ -8,7 +8,7 @@
     <p class="error">Sorry, that's not a valid username or password</p>
   {% endif %}
 
-  <form action="/accounts/login/" method="post">{% csrf_token %}
+  <form action="/checkout/" method="post">{% csrf_token %}
     <label for="username">User name:</label>
     <input type="text" name="username" value="" id="username">
     <label for="password">Password:</label>
@@ -17,8 +17,8 @@
     <input type="submit" value="login" />
 
   </form>
-  
-  
+
+
 
 
 {% endblock %}

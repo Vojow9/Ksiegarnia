@@ -3,7 +3,6 @@
 <script type="text/javascript">{% javascript_settings %}</script>
 <html>
 
-
     <head>
         <title>Księgarnia </title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -62,6 +61,12 @@
 
 					</form>
 
+					{% if request.session.username %}
+						Czesc, {{ request.session.first_name }}!
+					{% else %}
+						Witaj nieznajomy, zaloguj sie!
+					{% endif %}
+
 					<ul class="nav navbar-nav navbar-right">
 						<li class="">
 							<a href="{% url 'add_author'%}">
@@ -79,6 +84,38 @@
 							</a>
 						</li>
 					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="">
+									{% if request.session.username %}
+										<a href="{% url 'logout_user'%}">
+										<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+										Wyloguj się
+									{% else %}
+										<a href="{% url 'login_user'%}">
+										<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+										Zaloguj się
+									{% endif %}
+							</a>
+						</li>
+					</ul>
+                    {% if request.session.username %}
+                    <ul class="nav navbar-nav navbar-right">
+						<li class="">
+								<a href="{% url 'new_cart'%}">
+								<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								Koszyk
+							</a>
+						</li>
+					</ul>
+                    <ul class="nav navbar-nav navbar-right">
+						<li class="">
+								<a href="{% url 'mybooks'%}">
+								<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+								Moje książki
+							</a>
+						</li>
+					</ul>
+                    {% endif %}
 
 
 
